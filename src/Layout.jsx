@@ -460,14 +460,13 @@ export default function Layout({ children, currentPageName }) {
             setIsLoading(true);
 
             // --- Domain Handling ---
-            const APP_DOMAIN = 'app.clickmed360.co.il';
-            const MARKETING_DOMAIN = 'www.clickmed360.co.il';
-            const ROOT_DOMAIN = 'clickmed360.co.il'; // for cases where www is omitted
+            const APP_DOMAIN = 'clickmed360.com'; // Main app domain for logged-in users
+            const MARKETING_DOMAIN = 'clickmed360.co.il'; // Marketing domain for visitors (Home page only)
             const PREVIEW_DOMAIN_BASE = 'app--click-med-a86f0798.base44.app'; // Base for preview URLs like <hash>.base44.app
 
             const currentDomain = window.location.hostname;
             const isAppDomain = currentDomain === APP_DOMAIN || currentDomain.endsWith(PREVIEW_DOMAIN_BASE);
-            const isMarketingDomain = currentDomain === MARKETING_DOMAIN || currentDomain === ROOT_DOMAIN;
+            const isMarketingDomain = currentDomain === MARKETING_DOMAIN;
 
             try {
                 let currentUser = null;
@@ -503,20 +502,16 @@ export default function Layout({ children, currentPageName }) {
                     });
 
 
-                    // If user is authenticated and trying to access Welcome page, redirect to Dashboard
-                    if (currentPageName === 'Welcome' && currentUser) {
-                        // When impersonating, stay in the app, don't redirect away
-                        if (!isImpersonating) {
-                            const targetPage = currentUser.user_type === 'clinic' ? 'Partners' : 'Dashboard';
-                            window.location.href = `https://${APP_DOMAIN}/${targetPage}`;
-                            return;
-                        }
-                    }
-
-                    // If logged in, ensure user is on the app domain
-                    if (isMarketingDomain && currentUser) { // Removed `&& !isImpersonating` to ensure all logged-in users are on app domain
+                    // If logged in on marketing domain, redirect to app domain
+                    if (isMarketingDomain && currentUser) {
                         const targetPage = currentUser.user_type === 'clinic' ? 'Partners' : 'Dashboard';
                         window.location.href = `https://${APP_DOMAIN}/${targetPage}`;
+                        return;
+                    }
+
+                    // If not logged in on app domain (except Home/Welcome/LandingPage), redirect to marketing domain
+                    if (isAppDomain && !currentUser && currentPageName !== 'Home' && currentPageName !== 'Welcome' && currentPageName !== 'LandingPage') {
+                        window.location.href = `https://${MARKETING_DOMAIN}/Home`;
                         return;
                     }
 
@@ -553,20 +548,20 @@ export default function Layout({ children, currentPageName }) {
                 } catch (e) {
                     console.error('Authentication failed:', e);
 
-                    // Only redirect to marketing if user is on app domain and not on Welcome/Landing pages
-                    if (isAppDomain && currentPageName !== 'Welcome' && currentPageName !== 'LandingPage') {
-                         window.location.href = `https://${MARKETING_DOMAIN}/Welcome`;
+                    // If not logged in on app domain, redirect to marketing domain (Home page)
+                    if (isAppDomain && currentPageName !== 'Home' && currentPageName !== 'Welcome' && currentPageName !== 'LandingPage') {
+                         window.location.href = `https://${MARKETING_DOMAIN}/Home`;
                          return;
                     }
 
-                    // For marketing domain or Welcome/Landing pages, it's fine to be unauthenticated
-                    if (isMarketingDomain || currentPageName === 'Welcome' || currentPageName === 'LandingPage') {
+                    // For marketing domain or Home/Welcome/Landing pages, it's fine to be unauthenticated
+                    if (isMarketingDomain || currentPageName === 'Home' || currentPageName === 'Welcome' || currentPageName === 'LandingPage') {
                          setIsLoading(false);
                          return;
                     }
 
                     // Default redirect for other unauthenticated cases
-                    window.location.href = `https://${MARKETING_DOMAIN}/Welcome`;
+                    window.location.href = `https://${MARKETING_DOMAIN}/Home`;
                     return;
                 }
 
@@ -882,8 +877,15 @@ export default function Layout({ children, currentPageName }) {
         return SuspenseFallback;
     }
 
-    // If on Welcome, Home or Landing page (regardless of user status), show the page without Layout
-    if (currentPageName === 'Welcome' || currentPageName === 'Home' || currentPageName === 'LandingPage') {
+    // If on Home, Welcome or Landing page (regardless of user status), show the page without Layout
+    // But redirect logged-in users from these pages to the app
+    if (currentPageName === 'Home' || currentPageName === 'Welcome' || currentPageName === 'LandingPage') {
+        if (user) {
+            // Logged in users should be redirected to app domain
+            const targetPage = user.user_type === 'clinic' ? 'Partners' : 'Dashboard';
+            window.location.href = `https://clickmed360.com/${targetPage}`;
+            return null;
+        }
         return children;
     }
 
