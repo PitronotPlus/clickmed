@@ -470,15 +470,7 @@ export default function Layout({ children, currentPageName }) {
         const init = async () => {
             setIsLoading(true);
 
-            // --- Domain Handling ---
-            const APP_DOMAIN = 'clickmed360.com'; // Main app domain for logged-in users
-            const MARKETING_DOMAIN = 'clickmed360.co.il'; // Marketing domain for visitors (Home page only)
-            const PREVIEW_DOMAIN_BASE = 'base44.app'; // Base for preview URLs
-
-            const currentDomain = window.location.hostname;
-            const isPreviewEnvironment = currentDomain.includes(PREVIEW_DOMAIN_BASE);
-            const isAppDomain = currentDomain === APP_DOMAIN;
-            const isMarketingDomain = currentDomain === MARKETING_DOMAIN;
+            // Single domain setup - no domain redirects needed
 
             try {
                 let currentUser = null;
@@ -514,21 +506,7 @@ export default function Layout({ children, currentPageName }) {
                     });
 
 
-                    // Domain redirects only in production (not in preview environment)
-                    if (!isPreviewEnvironment) {
-                        // If logged in on marketing domain, redirect to app domain
-                        if (isMarketingDomain && currentUser) {
-                            const targetPage = currentUser.user_type === 'clinic' ? 'Partners' : 'Dashboard';
-                            window.location.href = `https://${APP_DOMAIN}/${targetPage}`;
-                            return;
-                        }
 
-                        // If not logged in on app domain, redirect to marketing domain Home page
-                        if (isAppDomain && !currentUser && currentPageName !== 'Home' && currentPageName !== 'Welcome' && currentPageName !== 'LandingPage') {
-                            window.location.href = `https://${MARKETING_DOMAIN}/Home`;
-                            return;
-                        }
-                    }
 
                     // Handle pending referral logic...
                     const pendingReferral = getCookie('pending_referral');
@@ -571,11 +549,7 @@ export default function Layout({ children, currentPageName }) {
 
                     // Not authenticated and trying to access any page other than Home/Welcome
                     // Redirect to Home page
-                    if (isPreviewEnvironment) {
-                        window.location.href = '/Home';
-                    } else {
-                        window.location.href = `https://${MARKETING_DOMAIN}/Home`;
-                    }
+                    window.location.href = '/Home';
                     return;
                 }
 
@@ -893,13 +867,6 @@ export default function Layout({ children, currentPageName }) {
 
     // If on Home, Welcome or Landing page, show without Layout
     if (currentPageName === 'Home' || currentPageName === 'Welcome' || currentPageName === 'LandingPage') {
-        // In production: redirect logged-in users to the app
-        const isPreview = window.location.hostname.includes('base44.app');
-        if (user && !isPreview) {
-            const targetPage = user.user_type === 'clinic' ? 'Partners' : 'Dashboard';
-            window.location.href = `https://clickmed360.com/${targetPage}`;
-            return null;
-        }
         return children;
     }
 

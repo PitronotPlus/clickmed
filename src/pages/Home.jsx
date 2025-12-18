@@ -1,26 +1,45 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { createPageUrl } from '@/utils';
-import { 
-    Stethoscope, 
-    Clock, 
-    Shield, 
-    Users, 
-    Calendar,
-    CheckCircle,
-    Star,
-    ArrowLeft,
-    Phone,
-    MessageSquare,
-    Award,
-    TrendingUp,
-    Heart,
-    Zap
-} from 'lucide-react';
+      import { Button } from '@/components/ui/button';
+      import { Card, CardContent } from '@/components/ui/card';
+      import { Badge } from '@/components/ui/badge';
+      import { createPageUrl } from '@/utils';
+      import { User } from '@/entities/User';
+      import { 
+          Stethoscope, 
+          Clock, 
+          Shield, 
+          Users, 
+          Calendar,
+          CheckCircle,
+          Star,
+          ArrowLeft,
+          Phone,
+          MessageSquare,
+          Award,
+          TrendingUp,
+          Heart,
+          Zap,
+          LogIn,
+          LogOut
+      } from 'lucide-react';
 
 export default function Home() {
+    const [user, setUser] = React.useState(null);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const currentUser = await User.me();
+                setUser(currentUser);
+            } catch (e) {
+                setUser(null);
+            } finally {
+                setLoading(false);
+            }
+        };
+        checkAuth();
+    }, []);
     const features = [
         {
             icon: Calendar,
@@ -137,12 +156,44 @@ export default function Home() {
                             className="h-16"
                         />
                         <div className="flex items-center gap-4">
-                            <Button variant="ghost" onClick={handleCTAClick}>
-                                התחברות
-                            </Button>
-                            <Button className="bg-[#5932EA] hover:bg-[#4a29c1]" onClick={handleCTAClick}>
-                                הרשמה חינם
-                            </Button>
+                            {loading ? (
+                                <div className="w-32 h-10 bg-gray-200 animate-pulse rounded"></div>
+                            ) : user ? (
+                                <>
+                                    <Button 
+                                        variant="default" 
+                                        className="bg-[#5932EA] hover:bg-[#4a29c1]"
+                                        onClick={() => {
+                                            const targetPage = user.user_type === 'clinic' ? 'Partners' : 
+                                                               user.user_type === 'doctor' ? 'DoctorAdminPanel' : 
+                                                               user.user_type === 'office' ? 'Office' : 'Dashboard';
+                                            window.location.href = createPageUrl(targetPage);
+                                        }}
+                                    >
+                                        <LogIn className="ml-2 w-4 h-4" />
+                                        כניסה למערכת
+                                    </Button>
+                                    <Button 
+                                        variant="outline"
+                                        onClick={async () => {
+                                            await User.logout();
+                                            window.location.reload();
+                                        }}
+                                    >
+                                        <LogOut className="ml-2 w-4 h-4" />
+                                        התנתקות
+                                    </Button>
+                                </>
+                            ) : (
+                                <>
+                                    <Button variant="ghost" onClick={handleCTAClick}>
+                                        התחברות
+                                    </Button>
+                                    <Button className="bg-[#5932EA] hover:bg-[#4a29c1]" onClick={handleCTAClick}>
+                                        הרשמה חינם
+                                    </Button>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
