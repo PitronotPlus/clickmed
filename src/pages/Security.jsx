@@ -313,66 +313,66 @@ function BestPracticesTab() {
             category: "הרשאות ואימות",
             icon: Lock,
             practices: [
-                "כל בדיקת הרשאה חייבת להתבצע בצד השרת",
-                "השתמשו ב-Row Level Security (RLS) בכל הטבלאות",
-                "אל תסמכו על role מהצד לקוח - תמיד בדקו בשרת",
-                "JWT tokens צריכים להיות קצרי חיים (15-30 דקות)",
-                "השתמשו ב-Refresh tokens לחידוש ה-session"
+                { text: "כל בדיקת הרשאה חייבת להתבצע בצד השרת", implemented: true },
+                { text: "השתמשו ב-Row Level Security (RLS) בכל הטבלאות", implemented: true },
+                { text: "אל תסמכו על role מהצד לקוח - תמיד בדקו בשרת", implemented: true },
+                { text: "JWT tokens צריכים להיות קצרי חיים (15-30 דקות)", implemented: true },
+                { text: "השתמשו ב-Refresh tokens לחידוש ה-session", implemented: true }
             ]
         },
         {
             category: "ניהול Secrets",
             icon: Key,
             practices: [
-                "אל תחשפו API keys בצד הלקוח לעולם",
-                "כל קריאה לשירות חיצוני דרך Backend Function",
-                "בצעו רוטציה של מפתחות באופן תקופתי",
-                "השתמשו ב-environment variables בלבד",
-                "אל תשמרו secrets בקוד או בגרסאות"
+                { text: "אל תחשפו API keys בצד הלקוח לעולם", implemented: true },
+                { text: "כל קריאה לשירות חיצוני דרך Backend Function", implemented: true },
+                { text: "בצעו רוטציה של מפתחות באופן תקופתי", implemented: false },
+                { text: "השתמשו ב-environment variables בלבד", implemented: true },
+                { text: "אל תשמרו secrets בקוד או בגרסאות", implemented: true }
             ]
         },
         {
             category: "Webhooks",
             icon: Server,
             practices: [
-                "תמיד אמתו webhooks עם HMAC signature",
-                "בדקו את ה-IP של השולח כשאפשרי",
-                "השתמשו ב-nonce/timestamp למניעת replay attacks",
-                "אל תסמכו על נתונים מ-webhook ללא אימות",
-                "שמרו לוג של כל webhook שהתקבל"
+                { text: "תמיד אמתו webhooks עם HMAC signature", implemented: false },
+                { text: "בדקו את ה-IP של השולח כשאפשרי", implemented: false },
+                { text: "השתמשו ב-nonce/timestamp למניעת replay attacks", implemented: false },
+                { text: "אל תסמכו על נתונים מ-webhook ללא אימות", implemented: false },
+                { text: "שמרו לוג של כל webhook שהתקבל", implemented: false }
             ]
         },
         {
             category: "קלט משתמשים",
             icon: FileText,
             practices: [
-                "נקו (sanitize) כל קלט לפני שמירה",
-                "השתמשו ב-Zod או ספריית validation אחרת",
-                "Escape HTML בכל מקום שמציגים תוכן משתמש",
-                "הגבילו גודל קבצים והעלאות",
-                "בדקו סוג קבצים ואל תסמכו רק על extension"
+                { text: "נקו (sanitize) כל קלט לפני שמירה", implemented: true },
+                { text: "השתמשו ב-Zod או ספריית validation אחרת", implemented: true },
+                { text: "Escape HTML בכל מקום שמציגים תוכן משתמש", implemented: true },
+                { text: "הגבילו גודל קבצים והעלאות", implemented: false },
+                { text: "בדקו סוג קבצים ואל תסמכו רק על extension", implemented: false }
             ]
         },
         {
             category: "Multi-Tenant",
             icon: Users,
             practices: [
-                "בכל query הוסיפו WHERE tenant_id = :current",
-                "אל תאפשרו למשתמש לשנות את ה-tenant_id שלו",
-                "בדקו בידוד נתונים בכל שכבה",
-                "בצעו audit tests על בידוד ה-tenants",
-                "שמרו לוג של כל גישה לנתוני tenant אחר"
+                { text: "בכל query הוסיפו WHERE tenant_id = :current", implemented: true },
+                { text: "אל תאפשרו למשתמש לשנות את ה-tenant_id שלו", implemented: true },
+                { text: "בדקו בידוד נתונים בכל שכבה", implemented: true },
+                { text: "בצעו audit tests על בידוד ה-tenants", implemented: false },
+                { text: "שמרו לוג של כל גישה לנתוני tenant אחר", implemented: false }
             ]
         },
         {
             category: "Logging & Monitoring",
             icon: Globe,
             practices: [
-                "אל תשמרו מידע רגיש בלוגים (ת\"ז, סיסמאות, כרטיסי אשראי)",
-                "הוסיפו masking לשדות רגישים",
-                "שמרו לוג של כל פעולה קריטית",
-                "הגדירו התראות על התנהגות חריגה",
-                "בצעו סקירת לוגים באופן קבוע"
+                { text: "אל תשמרו מידע רגיש בלוגים (ת\"ז, סיסמאות, כרטיסי אשראי)", implemented: true },
+                { text: "הוסיפו masking לשדות רגישים", implemented: true },
+                { text: "שמרו לוג של כל פעולה קריטית", implemented: false },
+                { text: "הגדירו התראות על התנהגות חריגה", implemented: false },
+                { text: "בצעו סקירת לוגים באופן קבוע", implemented: false }
             ]
         }
     ];
@@ -387,26 +387,42 @@ function BestPracticesTab() {
                 </AlertDescription>
             </Alert>
 
-            {bestPractices.map((section, idx) => (
-                <Card key={idx}>
-                    <CardHeader>
-                        <CardTitle className="flex items-center gap-3">
-                            <section.icon className="w-6 h-6 text-blue-600" />
-                            {section.category}
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <ul className="space-y-3">
-                            {section.practices.map((practice, pidx) => (
-                                <li key={pidx} className="flex items-start gap-3">
-                                    <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                                    <span className="text-gray-700">{practice}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </CardContent>
-                </Card>
-            ))}
+            {bestPractices.map((section, idx) => {
+                const implementedCount = section.practices.filter(p => p.implemented).length;
+                const totalCount = section.practices.length;
+                
+                return (
+                    <Card key={idx}>
+                        <CardHeader>
+                            <div className="flex items-center justify-between">
+                                <CardTitle className="flex items-center gap-3">
+                                    <section.icon className="w-6 h-6 text-blue-600" />
+                                    {section.category}
+                                </CardTitle>
+                                <Badge className={implementedCount === totalCount ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"}>
+                                    {implementedCount}/{totalCount} מיושם
+                                </Badge>
+                            </div>
+                        </CardHeader>
+                        <CardContent>
+                            <ul className="space-y-3">
+                                {section.practices.map((practice, pidx) => (
+                                    <li key={pidx} className="flex items-start gap-3">
+                                        {practice.implemented ? (
+                                            <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                                        ) : (
+                                            <XCircle className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                                        )}
+                                        <span className={practice.implemented ? "text-gray-700" : "text-gray-500"}>
+                                            {practice.text}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </CardContent>
+                    </Card>
+                );
+            })}
         </div>
     );
 }
