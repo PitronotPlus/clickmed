@@ -1,26 +1,39 @@
-import { createClient } from 'npm:@base44/sdk@0.1.0';
-
-const base44 = createClient({
-    appId: Deno.env.get('BASE44_APP_ID'),
-});
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.4';
 
 Deno.serve(async (req) => {
     try {
-        const authHeader = req.headers.get('Authorization');
-        if (!authHeader) {
-            return new Response('Unauthorized', { status: 401 });
+        const base44 = createClientFromRequest(req);
+        
+        const authenticatedUser = await base44.auth.me();
+        if (!authenticatedUser) {
+            return new Response(JSON.stringify({ error: 'Unauthorized' }), { 
+                status: 401,
+                headers: { 'Content-Type': 'application/json' }
+            });
         }
-        const token = authHeader.split(' ')[1];
-        base44.auth.setToken(token);
+        
+        // SECURITY: Log critical operation
+        console.log(`🔒 Referral conversion tracked by: ${authenticatedUser.email}`);
 
         const { userId, serviceCompleted, paymentAmount } = await req.json();
 
-        // קבלת פרטי המשתמש
-        const user = await base44.entities.User.get(userId);
+        // SECURITY: Use service role to get user data (admin operation)
+        const user = await base44.asServiceRole.entities.User.get(userId);
+        
+        // SECURITY: Log access to user data
+        await base44.asServiceRole.entities.ActivityLog.create({
+            user_id: authenticatedUser.id,
+            user_name: authenticatedUser.full_name,
+            action: 'רישום המרה של הפניה',
+            target_entity: 'User',
+            target_id: userId,
+            details: JSON.stringify({ serviceCompleted, paymentAmount })
+        });
         
         if (user.referred_by_clinic_id) {
             // חיפוש רשומת הפניה קיימת
-            const existingReferrals = await base44.entities.Referral.filter({
+            // SECURITY: Use service role for referral operations
+            const existingReferrals = await base44.asServiceRole.entities.Referral.filter({
                 clinic_id: user.referred_by_clinic_id,
                 patient_id: userId
             });
@@ -30,7 +43,7 @@ Deno.serve(async (req) => {
                 referral = existingReferrals[0];
             } else {
                 // יצירת רשומת הפניה חדשה (במקרה שלא נוצרה בהרשמה)
-                referral = await base44.entities.Referral.create({
+                referral = await base44.asServiceRole.entities.Referral.create({
                     clinic_id: user.referred_by_clinic_id,
                     patient_id: userId,
                     patient_name: user.full_name,
@@ -63,7 +76,7 @@ Deno.serve(async (req) => {
                 const commissionAmount = paymentAmount * commissionRate;
 
                 // עדכון רשומת ההפניה
-                await base44.entities.Referral.update(referral.id, {
+                await base44.asServiceRole.entities.Referral.update(referral.id, {
                     status: 'completed',
                     service: serviceCompleted,
                     commission: commissionAmount,
@@ -71,9 +84,9 @@ Deno.serve(async (req) => {
                 });
 
                 // שליחת התראה למרפאה
-                const clinic = await base44.entities.User.get(user.referred_by_clinic_id);
+                const clinic = await base44.asServiceRole.entities.User.get(user.referred_by_clinic_id);
                 if (clinic) {
-                    await base44.entities.SystemNotification.create({
+                    await base44.asServiceRole.entities.SystemNotification.create({
                         user_id: clinic.id,
                         title: 'עמלה חדשה מהפניה',
                         message: `המטופל ${user.full_name} השלים שירות "${serviceCompleted}" ונצברה עמלה של ₪${commissionAmount}`,

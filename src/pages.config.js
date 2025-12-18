@@ -33,6 +33,7 @@ import PatientMedicalRecord from './pages/PatientMedicalRecord';
 import AppointmentPayment from './pages/AppointmentPayment';
 import Home from './pages/Home';
 import Security from './pages/Security';
+import SecurityLogs from './pages/SecurityLogs';
 import __Layout from './Layout.jsx';
 
 
@@ -72,6 +73,7 @@ export const PAGES = {
     "AppointmentPayment": AppointmentPayment,
     "Home": Home,
     "Security": Security,
+    "SecurityLogs": SecurityLogs,
 }
 
 export const pagesConfig = {

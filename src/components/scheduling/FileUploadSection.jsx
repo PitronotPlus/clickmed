@@ -26,15 +26,28 @@ export default function FileUploadSection({
 
         try {
             const uploadPromises = files.map(async (file) => {
-                // Validate file type
+                // SECURITY: Validate file type (MIME type)
                 const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
                 if (!allowedTypes.includes(file.type)) {
                     throw new Error(`סוג קובץ לא נתמך: ${file.name}. מותרים רק PDF, JPG, PNG`);
                 }
 
-                // Validate file size (max 10MB)
-                if (file.size > 10 * 1024 * 1024) {
+                // SECURITY: Validate file extension (don't trust MIME type alone)
+                const allowedExtensions = ['.pdf', '.jpg', '.jpeg', '.png'];
+                const fileExtension = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
+                if (!allowedExtensions.includes(fileExtension)) {
+                    throw new Error(`סיומת קובץ לא חוקית: ${file.name}`);
+                }
+
+                // SECURITY: Validate file size (max 10MB)
+                const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+                if (file.size > MAX_FILE_SIZE) {
                     throw new Error(`קובץ גדול מדי: ${file.name}. מקסימום 10MB`);
+                }
+
+                // SECURITY: Validate minimum file size (prevent empty files)
+                if (file.size < 100) {
+                    throw new Error(`קובץ קטן מדי: ${file.name}. חשד לקובץ פגום`);
                 }
 
                 const result = await UploadFile({ file });

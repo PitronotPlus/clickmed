@@ -1,8 +1,16 @@
-
 import {
     Home, ShieldCheck, Headset, Briefcase, Building2, Users, LayoutGrid,
-    FileText, User, CalendarCheck, BarChart2, FlaskConical, Settings, HelpCircle, Archive,
+    FileText, User, CalendarCheck, BarChart2, FlaskConical, Settings, HelpCircle, Archive, CreditCard,
+    LayoutDashboard,
+    Calendar,
+    Stethoscope,
+    Building,
+    MessageSquare,
+    Bell,
+    FilePlus,
+    Database,
     HandCoins,
+    HeartPulse,
     Presentation // Added new icon
 } from "lucide-react";
 
@@ -42,5 +50,6 @@ export const navItems = [
         description: 'צפה בדף הנחיתה המכירתי',
         permissions: ['admin']
     },
-    { title: "הגדרות", icon: Settings, url: "Settings", description: "הגדרות מערכת (אדמין)", permissions: ["admin"] }
+    { title: "הגדרות", icon: Settings, url: "Settings", description: "הגדרות מערכת (אדמין)", permissions: ["admin"] },
+    { title: "לוג אבטחה", icon: ShieldCheck, url: "SecurityLogs", description: "מעקב אחר פעילות קריטית", permissions: ["admin"] }
 ];

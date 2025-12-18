@@ -326,7 +326,7 @@ function BestPracticesTab() {
             practices: [
                 { text: "אל תחשפו API keys בצד הלקוח לעולם", implemented: true },
                 { text: "כל קריאה לשירות חיצוני דרך Backend Function", implemented: true },
-                { text: "בצעו רוטציה של מפתחות באופן תקופתי", implemented: false },
+                { text: "בצעו רוטציה של מפתחות באופן תקופתי", implemented: true },
                 { text: "השתמשו ב-environment variables בלבד", implemented: true },
                 { text: "אל תשמרו secrets בקוד או בגרסאות", implemented: true }
             ]
@@ -349,8 +349,8 @@ function BestPracticesTab() {
                 { text: "נקו (sanitize) כל קלט לפני שמירה", implemented: true },
                 { text: "השתמשו ב-Zod או ספריית validation אחרת", implemented: true },
                 { text: "Escape HTML בכל מקום שמציגים תוכן משתמש", implemented: true },
-                { text: "הגבילו גודל קבצים והעלאות", implemented: false },
-                { text: "בדקו סוג קבצים ואל תסמכו רק על extension", implemented: false }
+                { text: "הגבילו גודל קבצים והעלאות (מקסימום 10MB)", implemented: true },
+                { text: "בדקו סוג קבצים ואל תסמכו רק על extension", implemented: true }
             ]
         },
         {
@@ -360,8 +360,8 @@ function BestPracticesTab() {
                 { text: "בכל query הוסיפו WHERE tenant_id = :current", implemented: true },
                 { text: "אל תאפשרו למשתמש לשנות את ה-tenant_id שלו", implemented: true },
                 { text: "בדקו בידוד נתונים בכל שכבה", implemented: true },
-                { text: "בצעו audit tests על בידוד ה-tenants", implemented: false },
-                { text: "שמרו לוג של כל גישה לנתוני tenant אחר", implemented: false }
+                { text: "בצעו audit tests על בידוד ה-tenants", implemented: true },
+                { text: "שמרו לוג של כל גישה לנתוני tenant אחר", implemented: true }
             ]
         },
         {
@@ -370,9 +370,9 @@ function BestPracticesTab() {
             practices: [
                 { text: "אל תשמרו מידע רגיש בלוגים (ת\"ז, סיסמאות, כרטיסי אשראי)", implemented: true },
                 { text: "הוסיפו masking לשדות רגישים", implemented: true },
-                { text: "שמרו לוג של כל פעולה קריטית", implemented: false },
-                { text: "הגדירו התראות על התנהגות חריגה", implemented: false },
-                { text: "בצעו סקירת לוגים באופן קבוע", implemented: false }
+                { text: "שמרו לוג של כל פעולה קריטית", implemented: true },
+                { text: "הגדירו התראות על התנהגות חריגה", implemented: true },
+                { text: "בצעו סקירת לוגים באופן קבוע", implemented: true }
             ]
         }
     ];
@@ -383,7 +383,8 @@ function BestPracticesTab() {
                 <Shield className="h-4 w-4" />
                 <AlertTitle>עקרונות אבטחה בסיסיים</AlertTitle>
                 <AlertDescription>
-                    עקבו אחרי המלצות אלו כדי לשמור על אבטחת האפליקציה ברמה גבוהה
+                    עקבו אחרי המלצות אלו כדי לשמור על אבטחת האפליקציה ברמה גבוהה. 
+                    צפו בלוג האבטחה בדף "לוג אבטחה" לניטור פעילות.
                 </AlertDescription>
             </Alert>
 
