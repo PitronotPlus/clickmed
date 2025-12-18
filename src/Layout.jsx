@@ -13,6 +13,7 @@ import { format } from 'date-fns'; // Import format from date-fns
 import {
     Bell,
     Search,
+    User,
     LogOut,
     MessageSquareText,
     UserCheck, // הוספת אייקון חדש
@@ -995,7 +996,7 @@ export default function Layout({ children, currentPageName }) {
 
             {!needsRoleSelection && !needsProfileCompletion && !needsPendingApproval && (
                 <div className="min-h-screen bg-gray-50" dir="rtl">
-                    <style jsx global>{`
+                    <style>{`
                     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
                     body, html, * {
                         font-family: 'Open Sans', sans-serif !important;

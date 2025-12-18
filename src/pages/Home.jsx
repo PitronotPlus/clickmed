@@ -6,12 +6,17 @@ import {
     Stethoscope, 
     Clock, 
     Shield, 
+    Users, 
     Calendar,
     CheckCircle,
     Star,
     ArrowLeft,
+    Phone,
     MessageSquare,
-    TrendingUp
+    Award,
+    TrendingUp,
+    Heart,
+    Zap
 } from 'lucide-react';
 
 export default function Home() {
@@ -114,7 +119,7 @@ export default function Home() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50" dir="rtl">
-            <style jsx global>{`
+            <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
                 body, html, * {
                     font-family: 'Open Sans', sans-serif !important;

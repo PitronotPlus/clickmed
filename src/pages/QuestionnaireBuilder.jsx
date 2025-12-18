@@ -93,7 +93,6 @@ function QuestionnaireBuilderContent() {
                         </div>
                     )}
                 </Card>
-            </Card>
             ))}
 
             <Button onClick={addField}>
