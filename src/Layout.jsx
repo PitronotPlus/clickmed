@@ -882,8 +882,8 @@ export default function Layout({ children, currentPageName }) {
         return SuspenseFallback;
     }
 
-    // If on Welcome, Home or Landing page and no user, show the page
-    if ((currentPageName === 'Welcome' || currentPageName === 'Home' || currentPageName === 'LandingPage') && !user) {
+    // If on Welcome, Home or Landing page (regardless of user status), show the page without Layout
+    if (currentPageName === 'Welcome' || currentPageName === 'Home' || currentPageName === 'LandingPage') {
         return children;
     }
 
