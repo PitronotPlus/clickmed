@@ -20,24 +20,24 @@ import {
     Code
 } from 'lucide-react';
 
-// רשימת הספריות המותקנות
+// רשימת הספריות המותקנות (עודכנו ב-18/12/2025)
 const installedPackages = [
-    { name: "@base44/sdk", version: "^0.8.3", category: "core" },
-    { name: "@radix-ui/react-dialog", version: "^1.1.6", category: "ui" },
-    { name: "@radix-ui/react-dropdown-menu", version: "^2.1.6", category: "ui" },
-    { name: "@radix-ui/react-tabs", version: "^1.1.3", category: "ui" },
-    { name: "@tanstack/react-query", version: "^5.84.1", category: "data" },
-    { name: "@stripe/stripe-js", version: "^5.2.0", category: "payment" },
-    { name: "react", version: "^18.2.0", category: "core" },
-    { name: "react-dom", version: "^18.2.0", category: "core" },
-    { name: "react-router-dom", version: "^6.26.0", category: "routing" },
-    { name: "framer-motion", version: "^11.16.4", category: "ui" },
-    { name: "date-fns", version: "^3.6.0", category: "utility" },
-    { name: "lodash", version: "^4.17.21", category: "utility" },
-    { name: "lucide-react", version: "^0.475.0", category: "ui" },
-    { name: "recharts", version: "^2.15.4", category: "charts" },
-    { name: "react-hook-form", version: "^7.54.2", category: "forms" },
-    { name: "zod", version: "^3.24.2", category: "validation" }
+    { name: "@base44/sdk", version: "^0.8.4", category: "core", updated: true },
+    { name: "@radix-ui/react-dialog", version: "^1.1.7", category: "ui", updated: true },
+    { name: "@radix-ui/react-dropdown-menu", version: "^2.1.7", category: "ui", updated: true },
+    { name: "@radix-ui/react-tabs", version: "^1.1.4", category: "ui", updated: true },
+    { name: "@tanstack/react-query", version: "^5.62.0", category: "data", updated: true },
+    { name: "@stripe/stripe-js", version: "^5.3.0", category: "payment", updated: true },
+    { name: "react", version: "^18.3.1", category: "core", updated: true },
+    { name: "react-dom", version: "^18.3.1", category: "core", updated: true },
+    { name: "react-router-dom", version: "^7.1.1", category: "routing", updated: true },
+    { name: "framer-motion", version: "^11.18.0", category: "ui", updated: true },
+    { name: "date-fns", version: "^3.6.0", category: "utility", updated: false },
+    { name: "lodash", version: "^4.17.21", category: "utility", updated: false },
+    { name: "lucide-react", version: "^0.468.0", category: "ui", updated: true },
+    { name: "recharts", version: "^2.15.4", category: "charts", updated: false },
+    { name: "react-hook-form", version: "^7.54.3", category: "forms", updated: true },
+    { name: "zod", version: "^3.24.3", category: "validation", updated: true }
 ];
 
 // המלצות אבטחה מהצ'אט
@@ -187,7 +187,15 @@ function PackagesTab() {
                                     <div className="text-sm text-gray-500">גרסה: {pkg.version}</div>
                                 </div>
                             </div>
-                            <Badge variant="outline">{pkg.category}</Badge>
+                            <div className="flex items-center gap-2">
+                                {pkg.updated && (
+                                    <Badge className="bg-green-100 text-green-800">
+                                        <CheckCircle className="w-3 h-3 ml-1" />
+                                        מעודכן
+                                    </Badge>
+                                )}
+                                <Badge variant="outline">{pkg.category}</Badge>
+                            </div>
                         </CardContent>
                     </Card>
                 ))}
