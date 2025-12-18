@@ -1,4 +1,4 @@
-import { createClientFromRequest } from 'npm:@base44/sdk@0.5.0';
+import { createClientFromRequest } from 'npm:@base44/sdk@0.8.4';
 
 Deno.serve(async (req) => {
     try {
@@ -36,13 +36,14 @@ Deno.serve(async (req) => {
 
         console.log('Sending SMS:', { phone: normalizedPhone, message: message.substring(0, 50) + '...' });
 
-        // Check user's SMS credits balance
+        // Check user's SMS credits balance - CRITICAL: Filter by user_id for RLS
         let creditBalance;
         try {
             const balances = await base44.entities.CreditBalance.filter({ user_id: user.id });
             creditBalance = balances.length > 0 ? balances[0] : null;
         } catch (error) {
             console.log('No credit balance found, creating one');
+            // RLS: user_id automatically enforced by SDK
             creditBalance = await base44.entities.CreditBalance.create({
                 user_id: user.id,
                 sms_credits: 0,
@@ -115,9 +116,9 @@ Deno.serve(async (req) => {
             last_updated: new Date().toISOString()
         });
 
-        // Log the transaction
+        // Log the transaction - RLS: user_id enforced
         await base44.entities.CreditTransaction.create({
-            user_id: user.id,
+            user_id: user.id, // CRITICAL: Always use authenticated user's ID
             type: 'usage',
             service: 'sms',
             amount: -1, // Negative for usage
