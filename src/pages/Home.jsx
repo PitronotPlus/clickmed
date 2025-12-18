@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { createPageUrl } from '@/utils';
 import { 
     Stethoscope, 
     Clock, 
@@ -114,7 +115,7 @@ export default function Home() {
     ];
 
     const handleCTAClick = () => {
-        window.location.href = 'https://app.clickmed360.co.il/Welcome';
+        window.location.href = createPageUrl('Welcome');
     };
 
     return (
