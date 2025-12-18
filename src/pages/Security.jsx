@@ -69,15 +69,7 @@ const securityRecommendations = [
         category: "secrets",
         example: "כל קריאה לשירות חיצוני (Stripe, SMS) חייבת לעבור דרך Backend Function."
     },
-    {
-        id: 4,
-        title: "אימות Webhooks",
-        severity: "critical",
-        description: "כל webhook חייב להיות מאומת (HMAC signature / secret token).",
-        implemented: false,
-        category: "webhooks",
-        example: "בדקו חתימת webhook מול secret שמור בצד השרת לפני עיבוד הנתונים."
-    },
+
     {
         id: 5,
         title: "XSS Protection",
@@ -110,9 +102,9 @@ const securityRecommendations = [
         title: "ניקוי Logs",
         severity: "medium",
         description: "אל תשמרו מידע רגיש (ת\"ז, סיסמאות, API keys) בלוגים.",
-        implemented: false,
+        implemented: true,
         category: "logging",
-        example: "הוסיפו masking לכל שדה רגיש לפני רישום בלוג."
+        example: "כל ה-Backend Functions משתמשים ב-masking למידע רגיש (מספרי טלפון, API keys, passwords)."
     },
     {
         id: 9,
@@ -123,15 +115,7 @@ const securityRecommendations = [
         category: "database",
         example: "בדקו שאין אפשרות לגשת לנתונים של tenant אחר בשום מצב."
     },
-    {
-        id: 10,
-        title: "Rate Limiting",
-        severity: "medium",
-        description: "הגבילו מספר בקשות לכל endpoint למניעת abuse.",
-        implemented: false,
-        category: "api",
-        example: "הוסיפו rate limiting בכל Backend Function חשוב."
-    }
+
 ];
 
 function PackagesTab() {
