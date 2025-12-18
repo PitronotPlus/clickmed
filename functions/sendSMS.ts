@@ -34,7 +34,9 @@ Deno.serve(async (req) => {
                 ? cleanPhone 
                 : '+972' + cleanPhone;
 
-        console.log('Sending SMS:', { phone: normalizedPhone, message: message.substring(0, 50) + '...' });
+        // Log with masked phone number (show only last 4 digits)
+        const maskedPhone = normalizedPhone.replace(/(\d{3,})(\d{4})$/, (_, p1, p2) => '*'.repeat(p1.length) + p2);
+        console.log('Sending SMS:', { phone: maskedPhone, message_length: message.length });
 
         // Check user's SMS credits balance - CRITICAL: Filter by user_id for RLS
         let creditBalance;
@@ -83,7 +85,8 @@ Deno.serve(async (req) => {
             sender: sender_name || 'ClickMed360'
         };
 
-        console.log('Calling TextMe API with payload:', { ...textmePayload, password: '[REDACTED]' });
+        // Log with all sensitive data masked
+        console.log('Calling TextMe API:', { recipient_masked: maskedPhone, sender: textmePayload.sender });
 
         const textmeResponse = await fetch(textmeUrl, {
             method: 'POST',
