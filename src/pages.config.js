@@ -32,6 +32,7 @@ import ConsultationRequest from './pages/ConsultationRequest';
 import PatientMedicalRecord from './pages/PatientMedicalRecord';
 import AppointmentPayment from './pages/AppointmentPayment';
 import Home from './pages/Home';
+import Security from './pages/Security';
 import __Layout from './Layout.jsx';
 
 
@@ -70,6 +71,7 @@ export const PAGES = {
     "PatientMedicalRecord": PatientMedicalRecord,
     "AppointmentPayment": AppointmentPayment,
     "Home": Home,
+    "Security": Security,
 }
 
 export const pagesConfig = {
