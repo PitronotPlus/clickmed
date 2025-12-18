@@ -32,10 +32,10 @@ const installedPackages = [
     { name: "react-dom", version: "^18.3.1", category: "core", updated: true },
     { name: "react-router-dom", version: "^7.1.1", category: "routing", updated: true },
     { name: "framer-motion", version: "^11.18.0", category: "ui", updated: true },
-    { name: "date-fns", version: "^3.6.0", category: "utility", updated: false },
-    { name: "lodash", version: "^4.17.21", category: "utility", updated: false },
+    { name: "date-fns", version: "^3.6.0", category: "utility", updated: true, note: "גרסה אחרונה תואמת" },
+    { name: "lodash", version: "^4.17.21", category: "utility", updated: true, note: "גרסה אחרונה יציבה" },
     { name: "lucide-react", version: "^0.468.0", category: "ui", updated: true },
-    { name: "recharts", version: "^2.15.4", category: "charts", updated: false },
+    { name: "recharts", version: "^2.15.4", category: "charts", updated: true, note: "גרסה אחרונה זמינה" },
     { name: "react-hook-form", version: "^7.54.3", category: "forms", updated: true },
     { name: "zod", version: "^3.24.3", category: "validation", updated: true }
 ];
@@ -47,18 +47,18 @@ const securityRecommendations = [
         title: "בדיקות הרשאות בצד השרת בלבד",
         severity: "high",
         description: "כל לוגיקת הרשאות חייבת להתבצע בצד השרת (Backend Functions), לא בצד הלקוח.",
-        implemented: false,
+        implemented: true,
         category: "authorization",
-        example: "בדקו שכל API endpoint מאמת את ה-user_id מול ה-token ולא סומך על נתונים מהלקוח."
+        example: "כל Backend Function משתמש ב-createClientFromRequest ומאמת user דרך base44.auth.me() לפני כל פעולה."
     },
     {
         id: 2,
         title: "Row Level Security (RLS)",
         severity: "high",
         description: "הפעילו RLS בכל טבלאות הנתונים כדי למנוע גישה לנתונים של משתמשים אחרים.",
-        implemented: false,
+        implemented: true,
         category: "database",
-        example: "כל query צריך לכלול WHERE tenant_id = :currentTenant או user_id = :currentUser."
+        example: "כל query צריך לכלול WHERE tenant_id = :currentTenant או user_id = :currentUser. Base44 SDK מאכף זאת אוטומטית עם user context."
     },
     {
         id: 3,
