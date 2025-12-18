@@ -332,17 +332,6 @@ function BestPracticesTab() {
             ]
         },
         {
-            category: "Webhooks",
-            icon: Server,
-            practices: [
-                { text: "תמיד אמתו webhooks עם HMAC signature", implemented: false },
-                { text: "בדקו את ה-IP של השולח כשאפשרי", implemented: false },
-                { text: "השתמשו ב-nonce/timestamp למניעת replay attacks", implemented: false },
-                { text: "אל תסמכו על נתונים מ-webhook ללא אימות", implemented: false },
-                { text: "שמרו לוג של כל webhook שהתקבל", implemented: false }
-            ]
-        },
-        {
             category: "קלט משתמשים",
             icon: FileText,
             practices: [
