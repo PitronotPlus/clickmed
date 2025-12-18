@@ -456,6 +456,17 @@ export default function Layout({ children, currentPageName }) {
     React.useEffect(() => {
         document.title = "הפעלת מערכת מנויים פרמיום מלאה";
 
+        // Add noindex meta tag to all pages except Home
+        if (currentPageName !== 'Home') {
+            let metaRobots = document.querySelector('meta[name="robots"]');
+            if (!metaRobots) {
+                metaRobots = document.createElement('meta');
+                metaRobots.name = 'robots';
+                document.head.appendChild(metaRobots);
+            }
+            metaRobots.content = 'noindex, nofollow';
+        }
+
         const init = async () => {
             setIsLoading(true);
 
@@ -552,29 +563,20 @@ export default function Layout({ children, currentPageName }) {
                 } catch (e) {
                     console.error('Authentication failed:', e);
 
-                    // In preview environment, allow unauthenticated access to Home/Welcome/LandingPage
-                    if (isPreviewEnvironment && (currentPageName === 'Home' || currentPageName === 'Welcome' || currentPageName === 'LandingPage')) {
+                    // CRITICAL: Only Home page is public. All other pages require login.
+                    if (currentPageName === 'Home') {
                         setIsLoading(false);
                         return;
                     }
 
-                    // In production: redirect to marketing domain if not logged in
-                    if (!isPreviewEnvironment) {
-                        if (isAppDomain && currentPageName !== 'Home' && currentPageName !== 'Welcome' && currentPageName !== 'LandingPage') {
-                             window.location.href = `https://${MARKETING_DOMAIN}/Home`;
-                             return;
-                        }
-
-                        if (isMarketingDomain || currentPageName === 'Home' || currentPageName === 'Welcome' || currentPageName === 'LandingPage') {
-                             setIsLoading(false);
-                             return;
-                        }
-
+                    // Not authenticated and trying to access any page other than Home
+                    // Redirect to Home page
+                    if (isPreviewEnvironment) {
+                        window.location.href = '/Home';
+                    } else {
                         window.location.href = `https://${MARKETING_DOMAIN}/Home`;
-                        return;
                     }
-
-                    setIsLoading(false);
+                    return;
                 }
 
                 // If in impersonation mode, skip the onboarding checks for the impersonated user
