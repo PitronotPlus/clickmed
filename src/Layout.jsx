@@ -457,7 +457,7 @@ export default function Layout({ children, currentPageName }) {
         document.title = "הפעלת מערכת מנויים פרמיום מלאה";
 
         // Add noindex meta tag to all pages except Home
-        if (currentPageName !== 'Home') {
+        if (currentPageName !== 'Home' && currentPageName !== 'Welcome') {
             let metaRobots = document.querySelector('meta[name="robots"]');
             if (!metaRobots) {
                 metaRobots = document.createElement('meta');
@@ -563,13 +563,13 @@ export default function Layout({ children, currentPageName }) {
                 } catch (e) {
                     console.error('Authentication failed:', e);
 
-                    // CRITICAL: Only Home page is public. All other pages require login.
-                    if (currentPageName === 'Home') {
+                    // CRITICAL: Only Home and Welcome pages are public. All other pages require login.
+                    if (currentPageName === 'Home' || currentPageName === 'Welcome') {
                         setIsLoading(false);
                         return;
                     }
 
-                    // Not authenticated and trying to access any page other than Home
+                    // Not authenticated and trying to access any page other than Home/Welcome
                     // Redirect to Home page
                     if (isPreviewEnvironment) {
                         window.location.href = '/Home';
