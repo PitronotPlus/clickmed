@@ -1,79 +1,79 @@
-import Dashboard from './pages/Dashboard';
-import Profile from './pages/Profile';
-import Users from './pages/Users';
-import Reports from './pages/Reports';
-import HealthProducts from './pages/HealthProducts';
-import Settings from './pages/Settings';
-import Help from './pages/Help';
-import Welcome from './pages/Welcome';
-import ScheduleAppointment from './pages/ScheduleAppointment';
 import AdminPanel from './pages/AdminPanel';
-import DoctorRequests from './pages/DoctorRequests';
-import DoctorProfile from './pages/DoctorProfile';
-import Partners from './pages/Partners';
-import Clinics from './pages/Clinics';
-import MedicalRecord from './pages/MedicalRecord';
-import DoctorAdminPanel from './pages/DoctorAdminPanel';
-import TicketDetails from './pages/TicketDetails';
 import AdminTickets from './pages/AdminTickets';
-import Messages from './pages/Messages';
-import Notifications from './pages/Notifications';
-import QuestionnaireBuilder from './pages/QuestionnaireBuilder';
-import Office from './pages/Office';
+import AppointmentPayment from './pages/AppointmentPayment';
 import Backups from './pages/Backups';
+import Clinics from './pages/Clinics';
+import ConsultationRequest from './pages/ConsultationRequest';
+import Credits from './pages/Credits';
+import Dashboard from './pages/Dashboard';
+import DoctorAdminPanel from './pages/DoctorAdminPanel';
 import DoctorAppointments from './pages/DoctorAppointments';
 import DoctorPatients from './pages/DoctorPatients';
-import Credits from './pages/Credits';
-import MyRequests from './pages/MyRequests';
-import PricingPlans from './pages/PricingPlans';
-import LandingPage from './pages/LandingPage';
-import Tasks from './pages/Tasks';
-import ConsultationRequest from './pages/ConsultationRequest';
-import PatientMedicalRecord from './pages/PatientMedicalRecord';
-import AppointmentPayment from './pages/AppointmentPayment';
+import DoctorProfile from './pages/DoctorProfile';
+import DoctorRequests from './pages/DoctorRequests';
+import HealthProducts from './pages/HealthProducts';
+import Help from './pages/Help';
 import Home from './pages/Home';
+import LandingPage from './pages/LandingPage';
+import MedicalRecord from './pages/MedicalRecord';
+import Messages from './pages/Messages';
+import MyRequests from './pages/MyRequests';
+import Notifications from './pages/Notifications';
+import Office from './pages/Office';
+import Partners from './pages/Partners';
+import PatientMedicalRecord from './pages/PatientMedicalRecord';
+import PricingPlans from './pages/PricingPlans';
+import Profile from './pages/Profile';
+import QuestionnaireBuilder from './pages/QuestionnaireBuilder';
+import Reports from './pages/Reports';
+import ScheduleAppointment from './pages/ScheduleAppointment';
 import Security from './pages/Security';
 import SecurityLogs from './pages/SecurityLogs';
+import Settings from './pages/Settings';
+import Tasks from './pages/Tasks';
+import TicketDetails from './pages/TicketDetails';
+import Users from './pages/Users';
+import Welcome from './pages/Welcome';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Dashboard": Dashboard,
-    "Profile": Profile,
-    "Users": Users,
-    "Reports": Reports,
-    "HealthProducts": HealthProducts,
-    "Settings": Settings,
-    "Help": Help,
-    "Welcome": Welcome,
-    "ScheduleAppointment": ScheduleAppointment,
     "AdminPanel": AdminPanel,
-    "DoctorRequests": DoctorRequests,
-    "DoctorProfile": DoctorProfile,
-    "Partners": Partners,
-    "Clinics": Clinics,
-    "MedicalRecord": MedicalRecord,
-    "DoctorAdminPanel": DoctorAdminPanel,
-    "TicketDetails": TicketDetails,
     "AdminTickets": AdminTickets,
-    "Messages": Messages,
-    "Notifications": Notifications,
-    "QuestionnaireBuilder": QuestionnaireBuilder,
-    "Office": Office,
+    "AppointmentPayment": AppointmentPayment,
     "Backups": Backups,
+    "Clinics": Clinics,
+    "ConsultationRequest": ConsultationRequest,
+    "Credits": Credits,
+    "Dashboard": Dashboard,
+    "DoctorAdminPanel": DoctorAdminPanel,
     "DoctorAppointments": DoctorAppointments,
     "DoctorPatients": DoctorPatients,
-    "Credits": Credits,
-    "MyRequests": MyRequests,
-    "PricingPlans": PricingPlans,
-    "LandingPage": LandingPage,
-    "Tasks": Tasks,
-    "ConsultationRequest": ConsultationRequest,
-    "PatientMedicalRecord": PatientMedicalRecord,
-    "AppointmentPayment": AppointmentPayment,
+    "DoctorProfile": DoctorProfile,
+    "DoctorRequests": DoctorRequests,
+    "HealthProducts": HealthProducts,
+    "Help": Help,
     "Home": Home,
+    "LandingPage": LandingPage,
+    "MedicalRecord": MedicalRecord,
+    "Messages": Messages,
+    "MyRequests": MyRequests,
+    "Notifications": Notifications,
+    "Office": Office,
+    "Partners": Partners,
+    "PatientMedicalRecord": PatientMedicalRecord,
+    "PricingPlans": PricingPlans,
+    "Profile": Profile,
+    "QuestionnaireBuilder": QuestionnaireBuilder,
+    "Reports": Reports,
+    "ScheduleAppointment": ScheduleAppointment,
     "Security": Security,
     "SecurityLogs": SecurityLogs,
+    "Settings": Settings,
+    "Tasks": Tasks,
+    "TicketDetails": TicketDetails,
+    "Users": Users,
+    "Welcome": Welcome,
 }
 
 export const pagesConfig = {

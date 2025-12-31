@@ -203,9 +203,9 @@ export default function Home() {
             <section className="pt-20 pb-32 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16">
-                        <Badge className="mb-6 bg-purple-100 text-purple-800 text-lg px-6 py-2">
+                        <div className="mb-6 bg-purple-100 text-purple-800 text-lg px-6 py-2 rounded-full font-semibold inline-block">
                             🚀 המערכת המתקדמת לשירותי רפואה
-                        </Badge>
+                        </div>
                         <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-8 leading-tight">
                             רפואה פרטית
                             <span className="block bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
