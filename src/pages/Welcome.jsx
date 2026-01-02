@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { User } from '@/entities/User';
 import { ReferralClick } from '@/entities/ReferralClick';
 import { createPageUrl } from '@/utils';
+import { base44 } from '@/api/base44Client';
 import { Loader2, Mail, Lock, User as UserIcon, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
@@ -84,7 +85,7 @@ export default function WelcomePage() {
             }
             
             // Base44 SDK - התחברות עם Google OAuth
-            window.location.href = `https://base44.app/auth/login?app_id=${window.__BASE44_APP_ID__}&provider=google&redirect=${window.location.origin}/Dashboard`;
+            base44.auth.redirectToLogin(`${window.location.origin}/Dashboard?provider=google`);
         } catch (error) {
             console.error("Google login failed:", error);
             alert("אירעה שגיאה בתהליך ההתחברות עם Google. נסה שוב.");
