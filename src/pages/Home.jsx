@@ -134,7 +134,7 @@ export default function Home() {
     ];
 
     const handleCTAClick = () => {
-        window.location.href = createPageUrl('Register');
+        window.location.href = createPageUrl('Register') + '?from=home';
     };
 
     return (

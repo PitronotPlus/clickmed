@@ -58,9 +58,17 @@ export default function RegisterPage() {
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
+        // If accessed directly (not from a button click), redirect to Home
         const urlParams = new URLSearchParams(window.location.search);
-        const refCode = urlParams.get('ref');
+        const fromPage = urlParams.get('from');
+        
+        // Only show Register if explicitly requested
+        if (!fromPage) {
+            window.location.href = createPageUrl('Home');
+            return;
+        }
 
+        const refCode = urlParams.get('ref');
         if (refCode) {
             // שמירת קוד הפניה בקוקי ל-30 יום
             setCookie('referral_code', refCode, 30);
