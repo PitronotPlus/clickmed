@@ -74,7 +74,8 @@ export default function WelcomePage() {
         }
     }, []);
 
-    const handleGoogleLogin = () => {
+    const handleGoogleLogin = async () => {
+        setLoading(true);
         try {
             // בדיקה אם יש קוד הפניה שמור
             const referralCode = getCookie('referral_code');
@@ -84,10 +85,14 @@ export default function WelcomePage() {
                 setCookie('pending_referral', referralCode, 1); // יום אחד
             }
             
-            // Base44 SDK - התחברות עם Google OAuth
-            base44.auth.redirectToLogin(`${window.location.origin}/Dashboard?provider=google`);
+            // Use User entity login - Base44 handles OAuth automatically
+            await User.login({ provider: 'google' });
+            
+            // After successful login, redirect to dashboard
+            window.location.href = createPageUrl('Dashboard') + '?is_new_user=true';
         } catch (error) {
             console.error("Google login failed:", error);
+            setLoading(false);
             alert("אירעה שגיאה בתהליך ההתחברות עם Google. נסה שוב.");
         }
     };
