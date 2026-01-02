@@ -74,7 +74,7 @@ export default function WelcomePage() {
         }
     }, []);
 
-    const handleGoogleLogin = async () => {
+    const handleGoogleLogin = () => {
         setLoading(true);
         try {
             // בדיקה אם יש קוד הפניה שמור
@@ -85,11 +85,8 @@ export default function WelcomePage() {
                 setCookie('pending_referral', referralCode, 1); // יום אחד
             }
             
-            // Use User entity login - Base44 handles OAuth automatically
-            await User.login({ provider: 'google' });
-            
-            // After successful login, redirect to dashboard
-            window.location.href = createPageUrl('Dashboard') + '?is_new_user=true';
+            // Base44 OAuth - התחברות עם Google
+            window.location.href = `https://base44.app/auth/login?provider=google&redirect_uri=${encodeURIComponent(window.location.origin + '/Dashboard?is_new_user=true')}`;
         } catch (error) {
             console.error("Google login failed:", error);
             setLoading(false);
@@ -294,6 +291,16 @@ export default function WelcomePage() {
                                                 </button>
                                             </div>
                                             {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+                                        </div>
+
+                                        <div className="text-left">
+                                            <button
+                                                type="button"
+                                                onClick={() => alert('נא לפנות לתמיכה במייל: support@clickmed360.com')}
+                                                className="text-sm text-[#5932EA] hover:underline"
+                                            >
+                                                שכחתי את הסיסמה
+                                            </button>
                                         </div>
                                         
                                         {errors.submit && (
