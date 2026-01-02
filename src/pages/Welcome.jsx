@@ -84,7 +84,7 @@ export default function WelcomePage() {
                 setCookie('pending_referral', referralCode, 1); // יום אחד
             }
             
-            await User.login();
+            await User.loginWithGoogle();
         } catch (error) {
             console.error("Google login failed:", error);
             setLoading(false);
