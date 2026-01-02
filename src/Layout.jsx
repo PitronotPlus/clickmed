@@ -574,10 +574,6 @@ export default function Layout({ children, currentPageName }) {
                 }
 
                 // From here, we assume user is logged in (not impersonating) and on the app domain
-                const urlParams = new URLSearchParams(window.location.search);
-                const isNewUser = urlParams.get('is_new_user') === 'true';
-                const isFromGoogleOAuth = urlParams.get('provider') === 'google';
-
                 const userPermissions = currentUser.permissions || [];
                 const isStaff = userPermissions.includes('admin') || userPermissions.includes('מנהל') || userPermissions.includes('office');
 
@@ -586,86 +582,51 @@ export default function Layout({ children, currentPageName }) {
                     setIsLoading(false);
                     return;
                 }
+
+                // Step 1: Check if user has a user_type
+                const hasUserType = currentUser.user_type && currentUser.user_type !== '';
                 
-                // Special handling for Google OAuth users - force onboarding if they haven't completed it
-                if (isFromGoogleOAuth || isNewUser) {
-                    const hasCompletedOnboarding = currentUser.id_number || currentUser.license_number || currentUser.clinic_name;
-                    const hasUserType = currentUser.user_type && currentUser.user_type !== '';
-                    
-                    if (!hasCompletedOnboarding) {
-                        if (!hasUserType) {
-                            console.log('Google OAuth user needs role selection');
-                            setNeedsRoleSelection(true);
-                            setIsLoading(false);
-                            return;
-                        } else {
-                            console.log('Google OAuth user needs profile completion');
-                            setUserRole(currentUser.user_type);
-                            setNeedsProfileCompletion(true);
-                            setIsLoading(false);
-                            return;
-                        }
-                    }
+                if (!hasUserType) {
+                    console.log('User needs role selection');
+                    setNeedsRoleSelection(true);
+                    setIsLoading(false);
+                    return;
                 }
 
-                if ((currentUser.user_type === 'doctor' || currentUser.user_type === 'clinic' || currentUser.user_type === 'office') && currentUser.status !== 'active') {
+                // Step 2: Check if profile is complete based on user_type
+                let isProfileComplete = false;
+                
+                if (currentUser.user_type === 'patient') {
+                    isProfileComplete = !!(currentUser.id_number &&
+                                          currentUser.phone &&
+                                          currentUser.address &&
+                                          currentUser.birth_date);
+                } else if (currentUser.user_type === 'doctor' || currentUser.user_type === 'clinic') {
+                    isProfileComplete = !!(currentUser.phone &&
+                                          currentUser.license_number &&
+                                          currentUser.specialties &&
+                                          Array.isArray(currentUser.specialties) &&
+                                          currentUser.specialties.length > 0);
+                }
+
+                if (!isProfileComplete) {
+                    console.log('User needs profile completion');
+                    setUserRole(currentUser.user_type);
+                    setNeedsProfileCompletion(true);
+                    setIsLoading(false);
+                    return;
+                }
+
+                // Step 3: Check if user needs approval (doctor/clinic with pending status)
+                if ((currentUser.user_type === 'doctor' || currentUser.user_type === 'clinic') && currentUser.status !== 'active') {
                     console.log('User pending approval:', {
                         userType: currentUser.user_type,
                         status: currentUser.status,
                         email: currentUser.email
                     });
-
                     setNeedsPendingApproval(true);
                     setIsLoading(false);
                     return;
-                }
-
-                const hasUserType = currentUser.user_type && currentUser.user_type !== '';
-                const needsOnboarding = isNewUser || !hasUserType;
-
-                console.log('Onboarding check:', {
-                    isNewUser,
-                    hasUserType,
-                    needsOnboarding,
-                    userType: currentUser.user_type,
-                    status: currentUser.status
-                });
-
-                if (needsOnboarding) {
-                    if (!hasUserType) {
-                        setNeedsRoleSelection(true);
-                        setIsLoading(false);
-                        return;
-                    }
-                }
-
-                if (hasUserType && currentUser.user_type === 'patient' && currentUser.status !== 'active') {
-                    let isProfileComplete = !!(currentUser.id_number &&
-                                          currentUser.phone &&
-                                          currentUser.address &&
-                                          currentUser.birth_date);
-
-                    if (!isProfileComplete) {
-                        setUserRole(currentUser.user_type);
-                        setNeedsProfileCompletion(true);
-                        setIsLoading(false);
-                        return;
-                    }
-                }
-
-                if (hasUserType && (currentUser.user_type === 'doctor' || currentUser.user_type === 'clinic' || currentUser.user_type === 'office') && currentUser.status !== 'active') {
-                    let isProviderProfileComplete = !!(currentUser.phone &&
-                                                        currentUser.license_number &&
-                                                        currentUser.specialties &&
-                                                        Array.isArray(currentUser.specialties) &&
-                                                        currentUser.specialties.length > 0);
-
-                    if (!isProviderProfileComplete) {
-                        setUserRole(currentUser.user_type);
-                        setNeedsProfileCompletion(true);
-                        setIsLoading(false);
-                        return;
-                    }
                 }
 
                 await loadSettingsAndMenuOrder();
