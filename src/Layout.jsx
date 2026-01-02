@@ -457,7 +457,7 @@ export default function Layout({ children, currentPageName }) {
         document.title = "הפעלת מערכת מנויים פרמיום מלאה";
 
         // Add noindex meta tag to all pages except Home
-        if (currentPageName !== 'Home' && currentPageName !== 'Welcome') {
+        if (currentPageName !== 'Home') {
             let metaRobots = document.querySelector('meta[name="robots"]');
             if (!metaRobots) {
                 metaRobots = document.createElement('meta');
@@ -465,6 +465,12 @@ export default function Layout({ children, currentPageName }) {
                 document.head.appendChild(metaRobots);
             }
             metaRobots.content = 'noindex, nofollow';
+        } else {
+            // Remove noindex from Home page if exists
+            let metaRobots = document.querySelector('meta[name="robots"]');
+            if (metaRobots) {
+                metaRobots.remove();
+            }
         }
 
         const init = async () => {
@@ -541,13 +547,13 @@ export default function Layout({ children, currentPageName }) {
                 } catch (e) {
                     console.error('Authentication failed:', e);
 
-                    // CRITICAL: Only Home and Welcome pages are public. All other pages require login.
-                    if (currentPageName === 'Home' || currentPageName === 'Welcome') {
+                    // CRITICAL: Only Home page is public. All other pages require login.
+                    if (currentPageName === 'Home') {
                         setIsLoading(false);
                         return;
                     }
 
-                    // Not authenticated and trying to access any page other than Home/Welcome
+                    // Not authenticated and trying to access a protected page
                     // Redirect to Home page
                     window.location.href = '/Home';
                     return;
@@ -865,8 +871,8 @@ export default function Layout({ children, currentPageName }) {
         return SuspenseFallback;
     }
 
-    // If on Home, Welcome or Landing page, show without Layout
-    if (currentPageName === 'Home' || currentPageName === 'Welcome' || currentPageName === 'LandingPage') {
+    // If on Home page, show without Layout (public page)
+    if (currentPageName === 'Home') {
         return children;
     }
 
