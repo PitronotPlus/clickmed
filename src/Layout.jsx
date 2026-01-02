@@ -576,6 +576,7 @@ export default function Layout({ children, currentPageName }) {
                 // From here, we assume user is logged in (not impersonating) and on the app domain
                 const urlParams = new URLSearchParams(window.location.search);
                 const isNewUser = urlParams.get('is_new_user') === 'true';
+                const isFromGoogleOAuth = urlParams.get('provider') === 'google';
 
                 const userPermissions = currentUser.permissions || [];
                 const isStaff = userPermissions.includes('admin') || userPermissions.includes('מנהל') || userPermissions.includes('office');
@@ -584,6 +585,27 @@ export default function Layout({ children, currentPageName }) {
                     await loadSettingsAndMenuOrder();
                     setIsLoading(false);
                     return;
+                }
+                
+                // Special handling for Google OAuth users - force onboarding if they haven't completed it
+                if (isFromGoogleOAuth || isNewUser) {
+                    const hasCompletedOnboarding = currentUser.id_number || currentUser.license_number || currentUser.clinic_name;
+                    const hasUserType = currentUser.user_type && currentUser.user_type !== '';
+                    
+                    if (!hasCompletedOnboarding) {
+                        if (!hasUserType) {
+                            console.log('Google OAuth user needs role selection');
+                            setNeedsRoleSelection(true);
+                            setIsLoading(false);
+                            return;
+                        } else {
+                            console.log('Google OAuth user needs profile completion');
+                            setUserRole(currentUser.user_type);
+                            setNeedsProfileCompletion(true);
+                            setIsLoading(false);
+                            return;
+                        }
+                    }
                 }
 
                 if ((currentUser.user_type === 'doctor' || currentUser.user_type === 'clinic' || currentUser.user_type === 'office') && currentUser.status !== 'active') {
