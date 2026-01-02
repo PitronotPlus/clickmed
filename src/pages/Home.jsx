@@ -28,17 +28,8 @@ export default function Home() {
     const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const currentUser = await User.me();
-                setUser(currentUser);
-            } catch (e) {
-                setUser(null);
-            } finally {
-                setLoading(false);
-            }
-        };
-        checkAuth();
+        // Don't check auth on Home page - it's public
+        setLoading(false);
     }, []);
     const features = [
         {
@@ -157,8 +148,8 @@ export default function Home() {
                         />
                         <div className="flex items-center gap-4">
                             {loading ? (
-                                <div className="w-32 h-10 bg-gray-200 animate-pulse rounded"></div>
-                            ) : user ? (
+                                    <div className="w-32 h-10 bg-gray-200 animate-pulse rounded"></div>
+                                ) : false ? (
                                 <>
                                     <Button 
                                         variant="default" 
