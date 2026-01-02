@@ -473,8 +473,8 @@ export default function Layout({ children, currentPageName }) {
             }
         }
 
-        // CRITICAL: If on Home or Login page, skip authentication entirely
-        if (currentPageName === 'Home' || currentPageName === 'Login') {
+        // CRITICAL: If on Home or Register page, skip authentication entirely
+        if (currentPageName === 'Home' || currentPageName === 'Register') {
             setIsLoading(false);
             return;
         }
@@ -553,15 +553,15 @@ export default function Layout({ children, currentPageName }) {
                 } catch (e) {
                     console.error('Authentication failed:', e);
 
-                    // CRITICAL: Only Home and Login pages are public. All other pages require login.
-                    if (currentPageName === 'Home' || currentPageName === 'Login') {
+                    // CRITICAL: Only Home and Register pages are public. All other pages require login.
+                    if (currentPageName === 'Home' || currentPageName === 'Register') {
                         setIsLoading(false);
                         return;
                     }
 
                     // Not authenticated and trying to access a protected page
-                    // Redirect to Login page for login
-                    window.location.href = '/Login';
+                    // Redirect to Register page for login
+                    window.location.href = '/Register';
                     return;
                 }
 
@@ -877,8 +877,8 @@ export default function Layout({ children, currentPageName }) {
         return SuspenseFallback;
     }
 
-    // If on Home or Login page, show without Layout (public pages)
-    if (currentPageName === 'Home' || currentPageName === 'Login') {
+    // If on Home or Register page, show without Layout (public pages)
+    if (currentPageName === 'Home' || currentPageName === 'Register') {
         return children;
     }
 
