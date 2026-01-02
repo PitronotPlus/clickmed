@@ -177,7 +177,7 @@ export default function Home() {
                                         variant="outline"
                                         onClick={async () => {
                                             await User.logout();
-                                            window.location.reload();
+                                            setUser(null);
                                         }}
                                     >
                                         <LogOut className="ml-2 w-4 h-4" />
