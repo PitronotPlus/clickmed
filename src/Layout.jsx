@@ -159,7 +159,7 @@ const Sidebar = ({ user, rolePermissions, menuOrder, isOpen, setIsOpen }) => {
                     <button
                         onClick={async () => {
                             await UserSDK.logout();
-                            window.location.href = createPageUrl('Welcome');
+                            window.location.href = createPageUrl('Home');
                         }}
                         className="flex items-center justify-center gap-3 px-4 py-2.5 mb-4 border border-gray-200 rounded-lg text-[#444444] hover:text-[#5932EA] transition-colors w-full"
                     >
@@ -536,7 +536,7 @@ export default function Layout({ children, currentPageName }) {
                             commission: 50,
                             payment_status: 'pending',
                             date: new Date().toISOString().split('T')[0],
-                            referral_link: `${window.location.origin}/Welcome?ref=${pendingReferral}`
+                            referral_link: `${window.location.origin}${createPageUrl('Home')}?ref=${pendingReferral}`
                         });
 
                         document.cookie = 'pending_referral=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
@@ -560,8 +560,8 @@ export default function Layout({ children, currentPageName }) {
                     }
 
                     // Not authenticated and trying to access a protected page
-                    // Redirect to Register page for login
-                    window.location.href = '/Register';
+                    // Redirect to Home page
+                    window.location.href = createPageUrl('Home');
                     return;
                 }
 
