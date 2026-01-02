@@ -125,7 +125,7 @@ export default function Home() {
     ];
 
     const handleCTAClick = () => {
-        window.location.href = createPageUrl('Welcome');
+        window.location.href = createPageUrl('Login');
     };
 
     return (

@@ -33,7 +33,6 @@ import Settings from './pages/Settings';
 import Tasks from './pages/Tasks';
 import TicketDetails from './pages/TicketDetails';
 import Users from './pages/Users';
-import Welcome from './pages/Welcome';
 import __Layout from './Layout.jsx';
 
 
@@ -73,7 +72,6 @@ export const PAGES = {
     "Tasks": Tasks,
     "TicketDetails": TicketDetails,
     "Users": Users,
-    "Welcome": Welcome,
 }
 
 export const pagesConfig = {
