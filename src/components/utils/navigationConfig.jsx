@@ -1,3 +1,4 @@
+
 import {
     Home, ShieldCheck, Headset, Briefcase, Building2, Users, LayoutGrid,
     FileText, User, CalendarCheck, BarChart2, FlaskConical, Settings, HelpCircle, Archive, CreditCard,
@@ -10,8 +11,7 @@ import {
     FilePlus,
     Database,
     HandCoins,
-    HeartPulse,
-    Presentation // Added new icon
+    HeartPulse
 } from "lucide-react";
 
 export const navItems = [
@@ -41,13 +41,6 @@ export const navItems = [
         url: 'Credits',
         icon: HandCoins, // Changed icon from CreditCard to HandCoins
         description: 'נהל את יתרות הקרדיט שלך לתקשורת', // Updated description
-        permissions: ['admin']
-    },
-    {
-        title: 'תצוגה מקדימה - דף נחיתה',
-        url: 'LandingPagePreview',
-        icon: Presentation,
-        description: 'צפה בדף הנחיתה המכירתי',
         permissions: ['admin']
     },
     { title: "הגדרות", icon: Settings, url: "Settings", description: "הגדרות מערכת (אדמין)", permissions: ["admin"] },
