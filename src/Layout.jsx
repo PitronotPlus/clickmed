@@ -473,6 +473,12 @@ export default function Layout({ children, currentPageName }) {
             }
         }
 
+        // CRITICAL: If on Home page, skip authentication entirely
+        if (currentPageName === 'Home') {
+            setIsLoading(false);
+            return;
+        }
+
         const init = async () => {
             setIsLoading(true);
 
