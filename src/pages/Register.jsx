@@ -226,7 +226,9 @@ export default function RegisterPage() {
             `}</style>
 
             <div className="absolute top-0 left-0 w-full h-[130px] bg-white flex items-center justify-start px-8" style={{ boxShadow: '0px 10px 60px rgba(226, 236, 249, 0.5)' }}>
-                <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/8bfb54141_CLICKMEDLOGO.png" alt="Clickmed 360" className="h-[75px]" />
+                <a href={createPageUrl('Home')} className="cursor-pointer">
+                    <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/8bfb54141_CLICKMEDLOGO.png" alt="Clickmed 360" className="h-[75px]" />
+                </a>
             </div>
 
             <div className="pt-[130px] py-12 px-8 flex items-center justify-center" style={{ minHeight: 'calc(100vh - 130px)' }}>
