@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { User as UserEntity } from '@/entities/User';
@@ -13,10 +12,12 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge'; // Added Badge import
-import { FileText, Stethoscope, Beaker, Pill, BookMarked, Users, Plus, Paperclip } from 'lucide-react';
+import { FileText, Stethoscope, Beaker, Pill, BookMarked, Users, Plus, Paperclip, ClipboardCheck, Send } from 'lucide-react';
 import { format } from 'date-fns';
 import { he } from 'date-fns/locale';
 import AddMedicalDataModal from '@/components/doctors/AddMedicalDataModal';
+import QuestionnaireResponsesTab from '@/components/patients/QuestionnaireResponsesTab';
+import SendQuestionnaireModal from '@/components/patients/SendQuestionnaireModal';
 
 const SectionCard = ({ title, icon: Icon, children, onAdd, canAdd }) => (
     <Card>
@@ -40,6 +41,7 @@ export default function PatientMedicalRecord() {
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalType, setModalType] = useState('');
+    const [isSendQuestionnaireOpen, setIsSendQuestionnaireOpen] = useState(false);
     const location = useLocation();
 
     const getPatientId = useCallback(() => new URLSearchParams(location.search).get('patientId'), [location.search]);
@@ -100,30 +102,39 @@ export default function PatientMedicalRecord() {
     return (
         <div className="space-y-6" dir="rtl">
             <Card className="overflow-hidden">
-                <CardHeader className="bg-gray-50 p-6 flex flex-col md:flex-row items-center gap-6">
-                    <Avatar className="h-24 w-24 border-4 border-white shadow-md">
-                        <AvatarImage src={patient.avatar} alt={patient.full_name} />
-                        <AvatarFallback className="text-2xl">{patient.full_name?.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                    <div className="text-center md:text-right">
-                        <CardTitle className="text-3xl font-bold">{patient.full_name}</CardTitle>
-                        <CardDescription className="text-gray-500 flex flex-wrap gap-x-4 gap-y-1 mt-2 justify-center md:justify-start">
-                            <span>ת.ז: {patient.id_number || 'לא הוזן'}</span>
-                            <span>ת. לידה: {patient.birth_date ? format(new Date(patient.birth_date), 'dd/MM/yyyy') : 'לא הוזן'}</span>
-                            <span>טלפון: {patient.phone || 'לא הוזן'}</span>
-                        </CardDescription>
+                <CardHeader className="bg-gray-50 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="flex flex-col md:flex-row items-center gap-6">
+                        <Avatar className="h-24 w-24 border-4 border-white shadow-md">
+                            <AvatarImage src={patient.avatar} alt={patient.full_name} />
+                            <AvatarFallback className="text-2xl">{patient.full_name?.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div className="text-center md:text-right">
+                            <CardTitle className="text-3xl font-bold">{patient.full_name}</CardTitle>
+                            <CardDescription className="text-gray-500 flex flex-wrap gap-x-4 gap-y-1 mt-2 justify-center md:justify-start">
+                                <span>ת.ז: {patient.id_number || 'לא הוזן'}</span>
+                                <span>ת. לידה: {patient.birth_date ? format(new Date(patient.birth_date), 'dd/MM/yyyy') : 'לא הוזן'}</span>
+                                <span>טלפון: {patient.phone || 'לא הוזן'}</span>
+                            </CardDescription>
+                        </div>
                     </div>
+                    {canAddData && (
+                        <Button onClick={() => setIsSendQuestionnaireOpen(true)} className="bg-[#5932EA]">
+                            <Send className="w-4 h-4 ml-2" />
+                            שלח שאלון
+                        </Button>
+                    )}
                 </CardHeader>
             </Card>
 
             <Tabs defaultValue="doctor-notes" className="w-full" dir="rtl">
-                <TabsList className="grid w-full grid-cols-2 md:grid-cols-6" dir="rtl">
+                <TabsList className="grid w-full grid-cols-2 md:grid-cols-7" dir="rtl">
                     <TabsTrigger value="doctor-notes" className="text-right">הערות רופא</TabsTrigger>
                     <TabsTrigger value="appointments" className="text-right">תורים</TabsTrigger>
                     <TabsTrigger value="test-results" className="text-right">תוצאות בדיקה</TabsTrigger>
                     <TabsTrigger value="medications" className="text-right">תרופות</TabsTrigger>
                     <TabsTrigger value="referrals" className="text-right">הפניות</TabsTrigger>
                     <TabsTrigger value="documents" className="text-right">מסמכים</TabsTrigger>
+                    <TabsTrigger value="questionnaires" className="text-right">שאלונים</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="doctor-notes" className="text-right">
@@ -243,6 +254,10 @@ export default function PatientMedicalRecord() {
                         ) : <p className="text-center text-gray-500 py-4">אין מסמכים.</p>}
                     </SectionCard>
                 </TabsContent>
+
+                <TabsContent value="questionnaires" className="text-right">
+                    <QuestionnaireResponsesTab patientId={patient.id} />
+                </TabsContent>
             </Tabs>
 
             {isModalOpen && (
@@ -253,6 +268,14 @@ export default function PatientMedicalRecord() {
                     patient={patient}
                     doctor={doctor}
                     onSuccess={fetchData}
+                />
+            )}
+
+            {isSendQuestionnaireOpen && (
+                <SendQuestionnaireModal
+                    isOpen={isSendQuestionnaireOpen}
+                    onClose={() => setIsSendQuestionnaireOpen(false)}
+                    patient={patient}
                 />
             )}
         </div>

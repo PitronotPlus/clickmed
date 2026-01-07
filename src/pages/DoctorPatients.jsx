@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Users, Search, Calendar, FileText, FilePen } from 'lucide-react';
+import { Users, Search, Calendar, FileText, FilePen, Send } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { he } from 'date-fns/locale';
 import { User as UserEntity } from '@/entities/User';
@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
 import DoctorScheduleAppointmentModal from '@/components/doctors/DoctorScheduleAppointmentModal';
 import AddVisitSummaryModal from '@/components/doctors/AddVisitSummaryModal';
+import SendQuestionnaireModal from '@/components/patients/SendQuestionnaireModal';
 
 export default function DoctorPatients() {
     const [patients, setPatients] = useState([]);
@@ -23,6 +24,8 @@ export default function DoctorPatients() {
     const [selectedPatientForScheduling, setSelectedPatientForScheduling] = useState(null);
     const [isAddingSummary, setIsAddingSummary] = useState(false);
     const [selectedPatientForSummary, setSelectedPatientForSummary] = useState(null);
+    const [isSendingQuestionnaire, setIsSendingQuestionnaire] = useState(false);
+    const [selectedPatientForQuestionnaire, setSelectedPatientForQuestionnaire] = useState(null);
 
     useEffect(() => {
         loadPatients();
@@ -134,6 +137,11 @@ export default function DoctorPatients() {
         setIsAddingSummary(true);
     };
 
+    const handleSendQuestionnaireClick = (patient) => {
+        setSelectedPatientForQuestionnaire(patient);
+        setIsSendingQuestionnaire(true);
+    };
+
     const filteredPatients = patients.filter(patient =>
         patient.full_name?.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -199,15 +207,19 @@ export default function DoctorPatients() {
                                                             </Link>
                                                         </Button>
                                                         <Button variant="outline" size="sm" onClick={() => handleAddSummaryClick(patient)} className="bg-green-50 hover:bg-green-100 border-green-200">
-                                                            <FilePen className="w-4 h-4 mr-2" />
-                                                            סיכום ביקור
+                                                                    <FilePen className="w-4 h-4 mr-2" />
+                                                                    סיכום ביקור
+                                                                </Button>
+                                                                <Button variant="outline" size="sm" onClick={() => handleSendQuestionnaireClick(patient)} className="bg-purple-50 hover:bg-purple-100 border-purple-200">
+                                                                    <Send className="w-4 h-4 mr-2" />
+                                                                    שאלון
+                                                                </Button>
+                                                            </>
+                                                        )}
+                                                        <Button variant="default" size="sm" onClick={() => handleScheduleClick(patient)} disabled={patient.unavailable}>
+                                                            <Calendar className="w-4 h-4 mr-2" />
+                                                            קבע תור
                                                         </Button>
-                                                    </>
-                                                )}
-                                                <Button variant="default" size="sm" onClick={() => handleScheduleClick(patient)} disabled={patient.unavailable}>
-                                                    <Calendar className="w-4 h-4 mr-2" />
-                                                    קבע תור
-                                                </Button>
                                             </div>
                                         </div>
                                     </CardContent>
@@ -245,6 +257,14 @@ export default function DoctorPatients() {
                     }}
                 />
             )}
-        </div>
-    );
-}
+
+            {isSendingQuestionnaire && selectedPatientForQuestionnaire && (
+                <SendQuestionnaireModal
+                    isOpen={isSendingQuestionnaire}
+                    onClose={() => setIsSendingQuestionnaire(false)}
+                    patient={selectedPatientForQuestionnaire}
+                />
+            )}
+            </div>
+            );
+            }
