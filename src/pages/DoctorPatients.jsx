@@ -1,10 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Users, Search, Calendar, FileText } from 'lucide-react';
+import { Users, Search, Calendar, FileText, FilePen } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { he } from 'date-fns/locale';
 import { User as UserEntity } from '@/entities/User';
@@ -12,7 +11,8 @@ import { Appointment } from '@/entities/Appointment';
 import { Request } from '@/entities/Request';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import DoctorScheduleAppointmentModal from '@/components/doctors/DoctorScheduleAppointmentModal'; // Import the new modal
+import DoctorScheduleAppointmentModal from '@/components/doctors/DoctorScheduleAppointmentModal';
+import AddVisitSummaryModal from '@/components/doctors/AddVisitSummaryModal';
 
 export default function DoctorPatients() {
     const [patients, setPatients] = useState([]);
@@ -21,6 +21,8 @@ export default function DoctorPatients() {
     const [user, setUser] = useState(null);
     const [isScheduling, setIsScheduling] = useState(false);
     const [selectedPatientForScheduling, setSelectedPatientForScheduling] = useState(null);
+    const [isAddingSummary, setIsAddingSummary] = useState(false);
+    const [selectedPatientForSummary, setSelectedPatientForSummary] = useState(null);
 
     useEffect(() => {
         loadPatients();
@@ -127,6 +129,11 @@ export default function DoctorPatients() {
         setIsScheduling(true);
     };
 
+    const handleAddSummaryClick = (patient) => {
+        setSelectedPatientForSummary(patient);
+        setIsAddingSummary(true);
+    };
+
     const filteredPatients = patients.filter(patient =>
         patient.full_name?.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -184,12 +191,18 @@ export default function DoctorPatients() {
                                             </div>
                                             <div className="flex gap-2">
                                                 {!patient.unavailable && (
-                                                    <Button variant="outline" size="sm" asChild>
-                                                        <Link to={createPageUrl(`PatientMedicalRecord?patientId=${patient.id}`)}>
-                                                            <FileText className="w-4 h-4 mr-2" />
-                                                            תיק רפואי
-                                                        </Link>
-                                                    </Button>
+                                                    <>
+                                                        <Button variant="outline" size="sm" asChild>
+                                                            <Link to={createPageUrl(`PatientMedicalRecord?patientId=${patient.id}`)}>
+                                                                <FileText className="w-4 h-4 mr-2" />
+                                                                תיק רפואי
+                                                            </Link>
+                                                        </Button>
+                                                        <Button variant="outline" size="sm" onClick={() => handleAddSummaryClick(patient)} className="bg-green-50 hover:bg-green-100 border-green-200">
+                                                            <FilePen className="w-4 h-4 mr-2" />
+                                                            סיכום ביקור
+                                                        </Button>
+                                                    </>
                                                 )}
                                                 <Button variant="default" size="sm" onClick={() => handleScheduleClick(patient)} disabled={patient.unavailable}>
                                                     <Calendar className="w-4 h-4 mr-2" />
@@ -216,7 +229,18 @@ export default function DoctorPatients() {
                     onClose={() => setIsScheduling(false)}
                     onAppointmentScheduled={() => {
                         setIsScheduling(false);
-                        // Optionally refresh data
+                        loadPatients();
+                    }}
+                />
+            )}
+            
+            {isAddingSummary && selectedPatientForSummary && (
+                <AddVisitSummaryModal
+                    isOpen={isAddingSummary}
+                    onClose={() => setIsAddingSummary(false)}
+                    patient={selectedPatientForSummary}
+                    onSuccess={() => {
+                        setIsAddingSummary(false);
                         loadPatients();
                     }}
                 />
