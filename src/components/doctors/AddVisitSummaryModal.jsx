@@ -4,9 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { MedicalNoteTemplate } from '@/entities/MedicalNoteTemplate';
-import { VisitSummary } from '@/entities/VisitSummary';
-import { User } from '@/entities/User';
+import { base44 } from '@/api/base44Client';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Loader2 } from 'lucide-react';
@@ -43,11 +41,10 @@ export default function AddVisitSummaryModal({ isOpen, onClose, patient, onSucce
 
     const loadTemplates = async () => {
         try {
-            const currentUser = await User.me();
-            const userTemplates = await MedicalNoteTemplate.filter({ doctor_id: currentUser.id });
+            const currentUser = await base44.auth.me();
+            const userTemplates = await base44.entities.MedicalNoteTemplate.filter({ doctor_id: currentUser.id });
             setTemplates(userTemplates);
             
-            // Auto-select default template if exists
             const defaultTemplate = userTemplates.find(t => t.is_default);
             if (defaultTemplate) {
                 setSelectedTemplate(defaultTemplate.id);
@@ -80,10 +77,10 @@ export default function AddVisitSummaryModal({ isOpen, onClose, patient, onSucce
 
         setLoading(true);
         try {
-            const currentUser = await User.me();
+            const currentUser = await base44.auth.me();
             const templateUsed = templates.find(t => t.id === selectedTemplate);
             
-            await VisitSummary.create({
+            await base44.entities.VisitSummary.create({
                 doctor_id: currentUser.id,
                 patient_id: patient.id,
                 visit_date: new Date(formData.visit_date).toISOString(),
@@ -98,7 +95,6 @@ export default function AddVisitSummaryModal({ isOpen, onClose, patient, onSucce
             onSuccess?.();
             onClose();
             
-            // Reset form
             setFormData({
                 visit_date: new Date().toISOString().split('T')[0],
                 summary_content: '',
@@ -140,7 +136,7 @@ export default function AddVisitSummaryModal({ isOpen, onClose, patient, onSucce
                                     <SelectValue placeholder="בחר תבנית או התחל מאפס" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value={null}>ללא תבנית (התחל מאפס)</SelectItem>
+                                    <SelectItem value={null}>ללא תבנית</SelectItem>
                                     {templates.map(template => (
                                         <SelectItem key={template.id} value={template.id}>
                                             {template.template_name}
@@ -198,7 +194,7 @@ export default function AddVisitSummaryModal({ isOpen, onClose, patient, onSucce
                         </div>
                         {formData.followup_required && (
                             <div className="flex-1">
-                                <Label>תאריך מעקב מומלץ</Label>
+                                <Label>תאריך מעקב</Label>
                                 <Input
                                     type="date"
                                     value={formData.followup_date}
