@@ -14,6 +14,7 @@ import { createPageUrl } from '@/utils';
 import DoctorScheduleAppointmentModal from '@/components/doctors/DoctorScheduleAppointmentModal';
 import AddVisitSummaryModal from '@/components/doctors/AddVisitSummaryModal';
 import SendQuestionnaireModal from '@/components/patients/SendQuestionnaireModal';
+import SendUploadLinkModal from '@/components/patients/SendUploadLinkModal';
 
 export default function DoctorPatients() {
     const [patients, setPatients] = useState([]);
@@ -26,6 +27,8 @@ export default function DoctorPatients() {
     const [selectedPatientForSummary, setSelectedPatientForSummary] = useState(null);
     const [isSendingQuestionnaire, setIsSendingQuestionnaire] = useState(false);
     const [selectedPatientForQuestionnaire, setSelectedPatientForQuestionnaire] = useState(null);
+    const [isSendingUploadLink, setIsSendingUploadLink] = useState(false);
+    const [selectedPatientForUpload, setSelectedPatientForUpload] = useState(null);
 
     useEffect(() => {
         loadPatients();
@@ -142,6 +145,11 @@ export default function DoctorPatients() {
         setIsSendingQuestionnaire(true);
     };
 
+    const handleSendUploadLinkClick = (patient) => {
+        setSelectedPatientForUpload(patient);
+        setIsSendingUploadLink(true);
+    };
+
     const filteredPatients = patients.filter(patient =>
         patient.full_name?.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -214,8 +222,12 @@ export default function DoctorPatients() {
                                                                     <Send className="w-4 h-4 mr-2" />
                                                                     שאלון
                                                                 </Button>
-                                                            </>
-                                                        )}
+                                                                <Button variant="outline" size="sm" onClick={() => handleSendUploadLinkClick(patient)} className="bg-orange-50 hover:bg-orange-100 border-orange-200">
+                                                                    <FileText className="w-4 h-4 mr-2" />
+                                                                    העלאה
+                                                                </Button>
+                                                                </>
+                                                                )}
                                                         <Button variant="default" size="sm" onClick={() => handleScheduleClick(patient)} disabled={patient.unavailable}>
                                                             <Calendar className="w-4 h-4 mr-2" />
                                                             קבע תור
@@ -263,6 +275,14 @@ export default function DoctorPatients() {
                     isOpen={isSendingQuestionnaire}
                     onClose={() => setIsSendingQuestionnaire(false)}
                     patient={selectedPatientForQuestionnaire}
+                />
+            )}
+
+            {isSendingUploadLink && selectedPatientForUpload && (
+                <SendUploadLinkModal
+                    isOpen={isSendingUploadLink}
+                    onClose={() => setIsSendingUploadLink(false)}
+                    patient={selectedPatientForUpload}
                 />
             )}
             </div>

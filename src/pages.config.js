@@ -36,6 +36,7 @@ import Tasks from './pages/Tasks';
 import TicketDetails from './pages/TicketDetails';
 import Users from './pages/Users';
 import FillQuestionnaire from './pages/FillQuestionnaire';
+import UploadDocuments from './pages/UploadDocuments';
 import __Layout from './Layout.jsx';
 
 
@@ -78,6 +79,7 @@ export const PAGES = {
     "TicketDetails": TicketDetails,
     "Users": Users,
     "FillQuestionnaire": FillQuestionnaire,
+    "UploadDocuments": UploadDocuments,
 }
 
 export const pagesConfig = {

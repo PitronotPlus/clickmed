@@ -18,6 +18,7 @@ import { he } from 'date-fns/locale';
 import AddMedicalDataModal from '@/components/doctors/AddMedicalDataModal';
 import QuestionnaireResponsesTab from '@/components/patients/QuestionnaireResponsesTab';
 import SendQuestionnaireModal from '@/components/patients/SendQuestionnaireModal';
+import SendUploadLinkModal from '@/components/patients/SendUploadLinkModal';
 
 const SectionCard = ({ title, icon: Icon, children, onAdd, canAdd }) => (
     <Card>
@@ -42,6 +43,7 @@ export default function PatientMedicalRecord() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalType, setModalType] = useState('');
     const [isSendQuestionnaireOpen, setIsSendQuestionnaireOpen] = useState(false);
+    const [isSendUploadLinkOpen, setIsSendUploadLinkOpen] = useState(false);
     const location = useLocation();
 
     const getPatientId = useCallback(() => new URLSearchParams(location.search).get('patientId'), [location.search]);
@@ -118,10 +120,16 @@ export default function PatientMedicalRecord() {
                         </div>
                     </div>
                     {canAddData && (
-                        <Button onClick={() => setIsSendQuestionnaireOpen(true)} className="bg-[#5932EA]">
-                            <Send className="w-4 h-4 ml-2" />
-                            שלח שאלון
-                        </Button>
+                        <div className="flex gap-2">
+                            <Button onClick={() => setIsSendQuestionnaireOpen(true)} className="bg-[#5932EA]">
+                                <Send className="w-4 h-4 ml-2" />
+                                שלח שאלון
+                            </Button>
+                            <Button onClick={() => setIsSendUploadLinkOpen(true)} variant="outline">
+                                <FileText className="w-4 h-4 ml-2" />
+                                קישור להעלאת מסמכים
+                            </Button>
+                        </div>
                     )}
                 </CardHeader>
             </Card>
@@ -275,6 +283,14 @@ export default function PatientMedicalRecord() {
                 <SendQuestionnaireModal
                     isOpen={isSendQuestionnaireOpen}
                     onClose={() => setIsSendQuestionnaireOpen(false)}
+                    patient={patient}
+                />
+            )}
+
+            {isSendUploadLinkOpen && (
+                <SendUploadLinkModal
+                    isOpen={isSendUploadLinkOpen}
+                    onClose={() => setIsSendUploadLinkOpen(false)}
                     patient={patient}
                 />
             )}
