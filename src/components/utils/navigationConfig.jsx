@@ -1,4 +1,3 @@
-
 import {
     Home, ShieldCheck, Headset, Briefcase, Building2, Users, LayoutGrid,
     FileText, User, CalendarCheck, BarChart2, FlaskConical, Settings, HelpCircle, Archive, CreditCard,
@@ -26,6 +25,7 @@ export const navItems = [
     { title: "פרופיל אישי (רופאים)", icon: User, url: "DoctorProfile", description: "ניהול פרטים אישיים (רופא)", permissions: ["doctor", "admin"] },
     { title: "בקשות וזימון תורים (רופאים)", icon: CalendarCheck, url: "DoctorRequests", description: "ניהול בקשות ותורים (רופא)", permissions: ["doctor", "admin"] },
     { title: "פאנל ניהול (רופאים)", icon: LayoutGrid, url: "DoctorAdminPanel", description: "דשבורד ניהולי לרופאים", permissions: ["doctor", "admin"] },
+    { title: "תבניות סיכומי ביקור", icon: FileText, url: "DoctorTemplates", description: "ניהול תבניות לרישום רפואי", permissions: ["doctor", "admin"] },
     
     // Admin & Office pages
     { title: "פאנל ניהול", icon: ShieldCheck, url: "AdminPanel", description: "ניהול כללי למנהלי מערכת", permissions: ["admin"] },

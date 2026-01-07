@@ -25,6 +25,7 @@ import PatientMedicalRecord from './pages/PatientMedicalRecord';
 import PricingPlans from './pages/PricingPlans';
 import Profile from './pages/Profile';
 import QuestionnaireBuilder from './pages/QuestionnaireBuilder';
+import Register from './pages/Register';
 import Reports from './pages/Reports';
 import ScheduleAppointment from './pages/ScheduleAppointment';
 import Security from './pages/Security';
@@ -33,7 +34,7 @@ import Settings from './pages/Settings';
 import Tasks from './pages/Tasks';
 import TicketDetails from './pages/TicketDetails';
 import Users from './pages/Users';
-import Register from './pages/Register';
+import DoctorTemplates from './pages/DoctorTemplates';
 import __Layout from './Layout.jsx';
 
 
@@ -65,6 +66,7 @@ export const PAGES = {
     "PricingPlans": PricingPlans,
     "Profile": Profile,
     "QuestionnaireBuilder": QuestionnaireBuilder,
+    "Register": Register,
     "Reports": Reports,
     "ScheduleAppointment": ScheduleAppointment,
     "Security": Security,
@@ -73,7 +75,7 @@ export const PAGES = {
     "Tasks": Tasks,
     "TicketDetails": TicketDetails,
     "Users": Users,
-    "Register": Register,
+    "DoctorTemplates": DoctorTemplates,
 }
 
 export const pagesConfig = {
