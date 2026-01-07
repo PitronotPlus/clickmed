@@ -26,6 +26,7 @@ export const navItems = [
     { title: "בקשות וזימון תורים (רופאים)", icon: CalendarCheck, url: "DoctorRequests", description: "ניהול בקשות ותורים (רופא)", permissions: ["doctor", "admin"] },
     { title: "פאנל ניהול (רופאים)", icon: LayoutGrid, url: "DoctorAdminPanel", description: "דשבורד ניהולי לרופאים", permissions: ["doctor", "admin"] },
     { title: "תבניות סיכומי ביקור", icon: FileText, url: "DoctorTemplates", description: "ניהול תבניות לרישום רפואי", permissions: ["doctor", "admin"] },
+    { title: "תבניות סיכומי ביקור", icon: FileText, url: "DoctorTemplates", description: "ניהול תבניות לרישום רפואי", permissions: ["doctor", "admin"] },
     
     // Admin & Office pages
     { title: "פאנל ניהול", icon: ShieldCheck, url: "AdminPanel", description: "ניהול כללי למנהלי מערכת", permissions: ["admin"] },
