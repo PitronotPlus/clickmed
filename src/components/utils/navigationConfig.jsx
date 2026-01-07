@@ -27,8 +27,9 @@ export const navItems = [
     { title: "פאנל ניהול (רופאים)", icon: LayoutGrid, url: "DoctorAdminPanel", description: "דשבורד ניהולי לרופאים", permissions: ["doctor", "admin"] },
     { title: "תבניות סיכומי ביקור", icon: FileText, url: "DoctorTemplates", description: "ניהול תבניות לרישום רפואי", permissions: ["doctor", "admin"] },
     { title: "תבניות סיכומי ביקור", icon: FileText, url: "DoctorTemplates", description: "ניהול תבניות לרישום רפואי", permissions: ["doctor", "admin"] },
-    
+
     // Admin & Office pages
+    { title: "בניית שאלונים", icon: FilePlus, url: "QuestionnaireBuilder", description: "יצירת שאלונים וחוזים", permissions: ["admin"] },
     { title: "פאנל ניהול", icon: ShieldCheck, url: "AdminPanel", description: "ניהול כללי למנהלי מערכת", permissions: ["admin"] },
     { title: "פניות תמיכה", icon: Headset, url: "AdminTickets", description: "מעקב וטיפול בפניות תמיכה", permissions: ["admin", "office"] },
     { title: "משרד", icon: Briefcase, url: "Office", description: "כלים תפעוליים לצוות המשרד", permissions: ["admin", "office"] },
