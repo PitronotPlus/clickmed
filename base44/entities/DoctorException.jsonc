@@ -1,0 +1,46 @@
+{
+  "name": "DoctorException",
+  "type": "object",
+  "properties": {
+    "doctor_id": {
+      "type": "string",
+      "description": "\u05de\u05d6\u05d4\u05d4 \u05d4\u05e8\u05d5\u05e4\u05d0"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u05ea\u05d0\u05e8\u05d9\u05da \u05d4\u05d7\u05e8\u05d9\u05d2\u05d4"
+    },
+    "exception_type": {
+      "type": "string",
+      "enum": [
+        "unavailable",
+        "custom_hours",
+        "vacation"
+      ],
+      "description": "\u05e1\u05d5\u05d2 \u05d4\u05d7\u05e8\u05d9\u05d2\u05d4"
+    },
+    "start_time": {
+      "type": "string",
+      "description": "\u05e9\u05e2\u05ea \u05d4\u05ea\u05d7\u05dc\u05d4 (\u05dc\u05d7\u05e8\u05d9\u05d2\u05d4 \u05de\u05e1\u05d5\u05d2 custom_hours)"
+    },
+    "end_time": {
+      "type": "string",
+      "description": "\u05e9\u05e2\u05ea \u05e1\u05d9\u05d5\u05dd (\u05dc\u05d7\u05e8\u05d9\u05d2\u05d4 \u05de\u05e1\u05d5\u05d2 custom_hours)"
+    },
+    "reason": {
+      "type": "string",
+      "description": "\u05e1\u05d9\u05d1\u05ea \u05d4\u05d7\u05e8\u05d9\u05d2\u05d4"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "\u05d4\u05d0\u05dd \u05d4\u05d7\u05e8\u05d9\u05d2\u05d4 \u05e4\u05e2\u05d9\u05dc\u05d4"
+    }
+  },
+  "required": [
+    "doctor_id",
+    "date",
+    "exception_type"
+  ]
+}

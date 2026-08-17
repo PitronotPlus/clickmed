@@ -1,0 +1,53 @@
+{
+  "name": "Medication",
+  "type": "object",
+  "properties": {
+    "patient_id": {
+      "type": "string",
+      "description": "\u05de\u05d6\u05d4\u05d4 \u05d4\u05de\u05d8\u05d5\u05e4\u05dc"
+    },
+    "name": {
+      "type": "string",
+      "description": "\u05e9\u05dd \u05d4\u05ea\u05e8\u05d5\u05e4\u05d4"
+    },
+    "dosage": {
+      "type": "string",
+      "description": "\u05de\u05d9\u05e0\u05d5\u05df"
+    },
+    "doctor": {
+      "type": "string",
+      "description": "\u05e8\u05d5\u05e4\u05d0 \u05de\u05e8\u05e9\u05dd"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u05ea\u05d0\u05e8\u05d9\u05da \u05d4\u05ea\u05d7\u05dc\u05d4"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u05ea\u05d0\u05e8\u05d9\u05da \u05e1\u05d9\u05d5\u05dd"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "\u05e4\u05e2\u05d9\u05dc",
+        "\u05d4\u05d5\u05e4\u05e1\u05e7",
+        "\u05d4\u05d5\u05e9\u05dc\u05dd"
+      ],
+      "description": "\u05e1\u05d8\u05d8\u05d5\u05e1 \u05d4\u05ea\u05e8\u05d5\u05e4\u05d4"
+    },
+    "notes": {
+      "type": "string",
+      "description": "\u05d4\u05e2\u05e8\u05d5\u05ea"
+    }
+  },
+  "required": [
+    "patient_id",
+    "name",
+    "dosage",
+    "doctor",
+    "start_date",
+    "status"
+  ]
+}

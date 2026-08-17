@@ -1,0 +1,243 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "display_name": {
+      "type": "string",
+      "description": "\u05e9\u05dd \u05d4\u05ea\u05e6\u05d5\u05d2\u05d4 \u05e9\u05dc \u05d4\u05de\u05e9\u05ea\u05de\u05e9 \u05d1\u05de\u05e2\u05e8\u05db\u05ea (\u05e0\u05d9\u05ea\u05df \u05dc\u05e9\u05d9\u05e0\u05d5\u05d9)"
+    },
+    "id_number": {
+      "type": "string",
+      "description": "\u05ea\u05e2\u05d5\u05d3\u05ea \u05d6\u05d4\u05d5\u05ea"
+    },
+    "phone": {
+      "type": "string",
+      "description": "\u05de\u05e1\u05e4\u05e8 \u05d8\u05dc\u05e4\u05d5\u05df"
+    },
+    "address": {
+      "type": "string",
+      "description": "\u05db\u05ea\u05d5\u05d1\u05ea \u05de\u05d2\u05d5\u05e8\u05d9\u05dd"
+    },
+    "birth_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u05ea\u05d0\u05e8\u05d9\u05da \u05dc\u05d9\u05d3\u05d4"
+    },
+    "insurance_provider": {
+      "type": "string",
+      "description": "\u05e7\u05d5\u05e4\u05ea \u05d7\u05d5\u05dc\u05d9\u05dd"
+    },
+    "avatar": {
+      "type": "string",
+      "description": "URL \u05dc\u05ea\u05de\u05d5\u05e0\u05ea \u05e4\u05e8\u05d5\u05e4\u05d9\u05dc"
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "\u05d4\u05e8\u05e9\u05d0\u05d5\u05ea \u05d4\u05de\u05e9\u05ea\u05de\u05e9"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "pending"
+      ],
+      "default": "pending",
+      "description": "\u05e1\u05d8\u05d8\u05d5\u05e1 \u05d4\u05de\u05e9\u05ea\u05de\u05e9"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "\u05ea\u05d2\u05d9\u05d5\u05ea \u05de\u05d9\u05d5\u05d7\u05d3\u05d5\u05ea \u05dc\u05de\u05d8\u05d5\u05e4\u05dc (VIP, \u05de\u05d5\u05e8\u05db\u05d1, \u05d5\u05db\u05d5')"
+    },
+    "license_number": {
+      "type": "string",
+      "description": "\u05de\u05e1\u05e4\u05e8 \u05e8\u05d9\u05e9\u05d9\u05d5\u05df \u05e8\u05d5\u05e4\u05d0"
+    },
+    "specialties": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "\u05ea\u05d7\u05d5\u05de\u05d9 \u05d4\u05ea\u05de\u05d7\u05d5\u05ea \u05e9\u05dc \u05d4\u05e8\u05d5\u05e4\u05d0"
+    },
+    "clinic_id": {
+      "type": "string",
+      "description": "\u05de\u05d6\u05d4\u05d4 \u05d4\u05de\u05e8\u05e4\u05d0\u05d4 \u05e9\u05d4\u05de\u05e9\u05ea\u05de\u05e9 \u05de\u05e9\u05d5\u05d9\u05da \u05d0\u05dc\u05d9\u05d4 (\u05d0\u05dd \u05e8\u05dc\u05d5\u05d5\u05e0\u05d8\u05d9)"
+    },
+    "bio": {
+      "type": "string",
+      "description": "\u05ea\u05d9\u05d0\u05d5\u05e8 \u05e7\u05e6\u05e8 \u05d0\u05d5 \u05d1\u05d9\u05d5\u05d2\u05e8\u05e4\u05d9\u05d4 (\u05dc\u05e8\u05d5\u05e4\u05d0\u05d9\u05dd)"
+    },
+    "user_type": {
+      "type": "string",
+      "enum": [
+        "patient",
+        "doctor",
+        "clinic",
+        "admin",
+        "office"
+      ],
+      "description": "\u05e1\u05d5\u05d2 \u05d4\u05de\u05e9\u05ea\u05de\u05e9 \u05d4\u05e8\u05d0\u05e9\u05d9"
+    },
+    "referred_by_clinic_id": {
+      "type": "string",
+      "description": "\u05de\u05d6\u05d4\u05d4 \u05d4\u05de\u05e8\u05e4\u05d0\u05d4 \u05e9\u05d4\u05e4\u05e0\u05ea\u05d4 \u05d0\u05ea \u05d4\u05de\u05e9\u05ea\u05de\u05e9 \u05d1\u05e2\u05ea \u05d4\u05d4\u05e8\u05e9\u05de\u05d4"
+    },
+    "clinic_name": {
+      "type": "string",
+      "description": "\u05e9\u05dd \u05d4\u05de\u05e8\u05e4\u05d0\u05d4 (\u05d0\u05dd user_type \u05d4\u05d5\u05d0 clinic)"
+    },
+    "contact_person": {
+      "type": "string",
+      "description": "\u05d0\u05d9\u05e9 \u05e7\u05e9\u05e8 \u05d1\u05de\u05e8\u05e4\u05d0\u05d4"
+    },
+    "clinic_type": {
+      "type": "string",
+      "description": "\u05e1\u05d5\u05d2 \u05d4\u05de\u05e8\u05e4\u05d0\u05d4"
+    },
+    "description": {
+      "type": "string",
+      "description": "\u05ea\u05d9\u05d0\u05d5\u05e8 \u05d4\u05de\u05e8\u05e4\u05d0\u05d4"
+    },
+    "bank_name": {
+      "type": "string",
+      "description": "\u05e9\u05dd \u05d4\u05d1\u05e0\u05e7"
+    },
+    "branch_number": {
+      "type": "string",
+      "description": "\u05de\u05e1\u05e4\u05e8 \u05e1\u05e0\u05d9\u05e3"
+    },
+    "account_number": {
+      "type": "string",
+      "description": "\u05de\u05e1\u05e4\u05e8 \u05d7\u05e9\u05d1\u05d5\u05df"
+    },
+    "account_holder_name": {
+      "type": "string",
+      "description": "\u05e9\u05dd \u05d1\u05e2\u05dc \u05d4\u05d7\u05e9\u05d1\u05d5\u05df"
+    },
+    "years_of_experience": {
+      "type": "integer",
+      "description": "\u05e9\u05e0\u05d5\u05ea \u05e0\u05d9\u05e1\u05d9\u05d5\u05df"
+    },
+    "education": {
+      "type": "string",
+      "description": "\u05d4\u05e9\u05db\u05dc\u05d4 \u05d5\u05e7\u05d5\u05e8\u05e1\u05d9 \u05d4\u05e9\u05ea\u05dc\u05de\u05d5\u05ea"
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "\u05e9\u05e4\u05d5\u05ea \u05d3\u05d9\u05d1\u05d5\u05e8"
+    },
+    "consultation_fee": {
+      "type": "number",
+      "description": "\u05e2\u05dc\u05d5\u05ea \u05d9\u05d9\u05e2\u05d5\u05e5"
+    },
+    "accepts_insurance": {
+      "type": "boolean",
+      "default": true,
+      "description": "\u05de\u05e7\u05d1\u05dc \u05d1\u05d9\u05d8\u05d5\u05d7"
+    },
+    "profile_images": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "\u05ea\u05de\u05d5\u05e0\u05d5\u05ea \u05e0\u05d5\u05e1\u05e4\u05d5\u05ea \u05dc\u05e4\u05e8\u05d5\u05e4\u05d9\u05dc (\u05ea\u05e2\u05d5\u05d3\u05d5\u05ea, \u05de\u05e8\u05e4\u05d0\u05d4 \u05d5\u05db\u05d5')"
+    },
+    "certificates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "description": "\u05ea\u05e2\u05d5\u05d3\u05d5\u05ea \u05d5\u05d4\u05e1\u05de\u05db\u05d5\u05ea"
+    },
+    "working_locations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "\u05de\u05d9\u05e7\u05d5\u05de\u05d9 \u05e2\u05d1\u05d5\u05d3\u05d4"
+    },
+    "website": {
+      "type": "string",
+      "description": "\u05d0\u05ea\u05e8 \u05d0\u05d9\u05e9\u05d9"
+    },
+    "youtube": {
+      "type": "string",
+      "description": "\u05e7\u05d9\u05e9\u05d5\u05e8 \u05dc\u05e2\u05e8\u05d5\u05e5 YouTube"
+    },
+    "whatsapp": {
+      "type": "string",
+      "description": "\u05e7\u05d9\u05e9\u05d5\u05e8 WhatsApp"
+    },
+    "telegram": {
+      "type": "string",
+      "description": "\u05e7\u05d9\u05e9\u05d5\u05e8 Telegram"
+    },
+    "subscription_type": {
+      "type": "string",
+      "enum": [
+        "basic",
+        "premium"
+      ],
+      "default": "basic",
+      "description": "\u05e1\u05d5\u05d2 \u05d4\u05de\u05e0\u05d5\u05d9"
+    },
+    "subscription_start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u05ea\u05d0\u05e8\u05d9\u05da \u05d4\u05ea\u05d7\u05dc\u05ea \u05d4\u05de\u05e0\u05d5\u05d9"
+    },
+    "subscription_end_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u05ea\u05d0\u05e8\u05d9\u05da \u05e1\u05d9\u05d5\u05dd \u05d4\u05de\u05e0\u05d5\u05d9"
+    },
+    "subscription_status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "expired",
+        "cancelled"
+      ],
+      "default": "active",
+      "description": "\u05e1\u05d8\u05d8\u05d5\u05e1 \u05d4\u05de\u05e0\u05d5\u05d9"
+    },
+    "premium_features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [
+        "priority_appointments",
+        "discounts",
+        "whatsapp_support",
+        "24_7_access",
+        "specialist_access"
+      ],
+      "description": "\u05ea\u05db\u05d5\u05e0\u05d5\u05ea \u05e4\u05e8\u05de\u05d9\u05d5\u05dd \u05d6\u05de\u05d9\u05e0\u05d5\u05ea"
+    }
+  },
+  "required": []
+}

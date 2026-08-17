@@ -1,0 +1,54 @@
+{
+  "name": "DoctorAvailability",
+  "type": "object",
+  "properties": {
+    "doctor_id": {
+      "type": "string",
+      "description": "\u05de\u05d6\u05d4\u05d4 \u05d4\u05e8\u05d5\u05e4\u05d0"
+    },
+    "day_of_week": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 6,
+      "description": "\u05d9\u05d5\u05dd \u05d1\u05e9\u05d1\u05d5\u05e2 (0=\u05e8\u05d0\u05e9\u05d5\u05df, 6=\u05e9\u05d1\u05ea)"
+    },
+    "start_time": {
+      "type": "string",
+      "pattern": "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$",
+      "description": "\u05e9\u05e2\u05ea \u05d4\u05ea\u05d7\u05dc\u05d4 (\u05e4\u05d5\u05e8\u05de\u05d8 HH:MM)"
+    },
+    "end_time": {
+      "type": "string",
+      "pattern": "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$",
+      "description": "\u05e9\u05e2\u05ea \u05e1\u05d9\u05d5\u05dd (\u05e4\u05d5\u05e8\u05de\u05d8 HH:MM)"
+    },
+    "is_available": {
+      "type": "boolean",
+      "default": true,
+      "description": "\u05d4\u05d0\u05dd \u05d4\u05e8\u05d5\u05e4\u05d0 \u05d6\u05de\u05d9\u05df \u05d1\u05d9\u05d5\u05dd \u05d6\u05d4"
+    },
+    "appointment_duration": {
+      "type": "integer",
+      "default": 30,
+      "description": "\u05de\u05e9\u05da \u05ea\u05d5\u05e8 \u05d1\u05d3\u05e7\u05d5\u05ea"
+    },
+    "break_start": {
+      "type": "string",
+      "description": "\u05e9\u05e2\u05ea \u05d4\u05ea\u05d7\u05dc\u05ea \u05d4\u05e4\u05e1\u05e7\u05d4 (\u05d0\u05d5\u05e4\u05e6\u05d9\u05d5\u05e0\u05dc\u05d9)"
+    },
+    "break_end": {
+      "type": "string",
+      "description": "\u05e9\u05e2\u05ea \u05e1\u05d9\u05d5\u05dd \u05d4\u05e4\u05e1\u05e7\u05d4 (\u05d0\u05d5\u05e4\u05e6\u05d9\u05d5\u05e0\u05dc\u05d9)"
+    },
+    "location": {
+      "type": "string",
+      "description": "\u05de\u05d9\u05e7\u05d5\u05dd/\u05de\u05e8\u05e4\u05d0\u05d4 \u05e9\u05dc \u05d4\u05e8\u05d5\u05e4\u05d0 \u05d1\u05d0\u05d5\u05ea\u05d5 \u05d9\u05d5\u05dd"
+    }
+  },
+  "required": [
+    "doctor_id",
+    "day_of_week",
+    "start_time",
+    "end_time"
+  ]
+}

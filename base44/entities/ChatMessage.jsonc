@@ -1,0 +1,38 @@
+{
+  "name": "ChatMessage",
+  "type": "object",
+  "properties": {
+    "sender_id": {
+      "type": "string",
+      "description": "\u05de\u05d6\u05d4\u05d4 \u05d4\u05e9\u05d5\u05dc\u05d7"
+    },
+    "receiver_id": {
+      "type": "string",
+      "description": "\u05de\u05d6\u05d4\u05d4 \u05d4\u05e0\u05de\u05e2\u05df"
+    },
+    "message": {
+      "type": "string",
+      "description": "\u05ea\u05d5\u05db\u05df \u05d4\u05d4\u05d5\u05d3\u05e2\u05d4"
+    },
+    "read": {
+      "type": "boolean",
+      "default": false,
+      "description": "\u05d4\u05d0\u05dd \u05d4\u05d4\u05d5\u05d3\u05e2\u05d4 \u05e0\u05e7\u05e8\u05d0\u05d4"
+    },
+    "message_type": {
+      "type": "string",
+      "enum": [
+        "text",
+        "image",
+        "file"
+      ],
+      "default": "text",
+      "description": "\u05e1\u05d5\u05d2 \u05d4\u05d4\u05d5\u05d3\u05e2\u05d4"
+    }
+  },
+  "required": [
+    "sender_id",
+    "receiver_id",
+    "message"
+  ]
+}

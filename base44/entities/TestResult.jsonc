@@ -1,0 +1,56 @@
+{
+  "name": "TestResult",
+  "type": "object",
+  "properties": {
+    "patient_id": {
+      "type": "string",
+      "description": "\u05de\u05d6\u05d4\u05d4 \u05d4\u05de\u05d8\u05d5\u05e4\u05dc"
+    },
+    "test_name": {
+      "type": "string",
+      "description": "\u05e9\u05dd \u05d4\u05d1\u05d3\u05d9\u05e7\u05d4"
+    },
+    "doctor": {
+      "type": "string",
+      "description": "\u05e8\u05d5\u05e4\u05d0 \u05de\u05d1\u05e6\u05e2"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u05ea\u05d0\u05e8\u05d9\u05da \u05d4\u05d1\u05d3\u05d9\u05e7\u05d4"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "\u05d4\u05d5\u05e9\u05dc\u05dd",
+        "\u05d1\u05e2\u05d9\u05d1\u05d5\u05d3",
+        "\u05d1\u05d5\u05d8\u05dc"
+      ],
+      "description": "\u05e1\u05d8\u05d8\u05d5\u05e1 \u05d4\u05d1\u05d3\u05d9\u05e7\u05d4"
+    },
+    "results": {
+      "type": "string",
+      "description": "\u05ea\u05d5\u05e6\u05d0\u05d5\u05ea \u05d4\u05d1\u05d3\u05d9\u05e7\u05d4"
+    },
+    "urgent": {
+      "type": "boolean",
+      "default": false,
+      "description": "\u05d4\u05d0\u05dd \u05d3\u05d7\u05d5\u05e3"
+    },
+    "category": {
+      "type": "string",
+      "description": "\u05e7\u05d8\u05d2\u05d5\u05e8\u05d9\u05d9\u05ea \u05d4\u05d1\u05d3\u05d9\u05e7\u05d4"
+    },
+    "file_url": {
+      "type": "string",
+      "description": "\u05e7\u05d9\u05e9\u05d5\u05e8 \u05dc\u05e7\u05d5\u05d1\u05e5 \u05d4\u05ea\u05d5\u05e6\u05d0\u05d5\u05ea"
+    }
+  },
+  "required": [
+    "patient_id",
+    "test_name",
+    "doctor",
+    "date",
+    "status"
+  ]
+}

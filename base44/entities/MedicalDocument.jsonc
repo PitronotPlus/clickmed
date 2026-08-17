@@ -1,0 +1,57 @@
+{
+  "name": "MedicalDocument",
+  "type": "object",
+  "properties": {
+    "patient_id": {
+      "type": "string",
+      "description": "\u05de\u05d6\u05d4\u05d4 \u05d4\u05de\u05d8\u05d5\u05e4\u05dc"
+    },
+    "name": {
+      "type": "string",
+      "description": "\u05e9\u05dd \u05d4\u05de\u05e1\u05de\u05da"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "\u05d1\u05d3\u05d9\u05e7\u05d4",
+        "\u05d4\u05d3\u05de\u05d9\u05d4",
+        "\u05de\u05e1\u05de\u05da",
+        "\u05de\u05e8\u05e9\u05dd"
+      ],
+      "description": "\u05e1\u05d5\u05d2 \u05d4\u05de\u05e1\u05de\u05da"
+    },
+    "doctor": {
+      "type": "string",
+      "description": "\u05e8\u05d5\u05e4\u05d0 \u05de\u05e2\u05dc\u05d4"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u05ea\u05d0\u05e8\u05d9\u05da \u05d4\u05de\u05e1\u05de\u05da"
+    },
+    "file_url": {
+      "type": "string",
+      "description": "\u05e7\u05d9\u05e9\u05d5\u05e8 \u05dc\u05e7\u05d5\u05d1\u05e5"
+    },
+    "file_size": {
+      "type": "string",
+      "description": "\u05d2\u05d5\u05d3\u05dc \u05d4\u05e7\u05d5\u05d1\u05e5"
+    },
+    "file_format": {
+      "type": "string",
+      "description": "\u05e4\u05d5\u05e8\u05de\u05d8 \u05d4\u05e7\u05d5\u05d1\u05e5"
+    },
+    "description": {
+      "type": "string",
+      "description": "\u05ea\u05d9\u05d0\u05d5\u05e8 \u05d4\u05de\u05e1\u05de\u05da"
+    }
+  },
+  "required": [
+    "patient_id",
+    "name",
+    "type",
+    "doctor",
+    "date",
+    "file_url"
+  ]
+}

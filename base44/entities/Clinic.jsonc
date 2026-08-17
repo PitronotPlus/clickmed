@@ -1,0 +1,88 @@
+{
+  "name": "Clinic",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "\u05e9\u05dd \u05d4\u05de\u05e8\u05e4\u05d0\u05d4"
+    },
+    "contact_person": {
+      "type": "string",
+      "description": "\u05d0\u05d9\u05e9 \u05e7\u05e9\u05e8"
+    },
+    "phone": {
+      "type": "string",
+      "description": "\u05d8\u05dc\u05e4\u05d5\u05df"
+    },
+    "email": {
+      "type": "string",
+      "description": "\u05d0\u05d9\u05de\u05d9\u05d9\u05dc"
+    },
+    "address": {
+      "type": "string",
+      "description": "\u05db\u05ea\u05d5\u05d1\u05ea"
+    },
+    "description": {
+      "type": "string",
+      "description": "\u05ea\u05d9\u05d0\u05d5\u05e8 \u05d4\u05de\u05e8\u05e4\u05d0\u05d4"
+    },
+    "agreement_type": {
+      "type": "string",
+      "enum": [
+        "percentage",
+        "fixed",
+        "both"
+      ],
+      "description": "\u05e1\u05d5\u05d2 \u05d4\u05e1\u05db\u05dd \u05e2\u05de\u05dc\u05d5\u05ea"
+    },
+    "commission_rate": {
+      "type": "number",
+      "description": "\u05e9\u05d9\u05e2\u05d5\u05e8 \u05e2\u05de\u05dc\u05d4 \u05d1\u05d0\u05d7\u05d5\u05d6\u05d9\u05dd"
+    },
+    "fixed_rate": {
+      "type": "number",
+      "description": "\u05e2\u05de\u05dc\u05d4 \u05e7\u05d1\u05d5\u05e2\u05d4"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "pending",
+        "inactive"
+      ],
+      "default": "pending",
+      "description": "\u05e1\u05d8\u05d8\u05d5\u05e1 \u05d4\u05de\u05e8\u05e4\u05d0\u05d4"
+    },
+    "joined_date": {
+      "type": "string",
+      "format": "date",
+      "description": "\u05ea\u05d0\u05e8\u05d9\u05da \u05d4\u05e6\u05d8\u05e8\u05e4\u05d5\u05ea"
+    },
+    "referral_code": {
+      "type": "string",
+      "description": "\u05e7\u05d5\u05d3 \u05d4\u05e4\u05e0\u05d9\u05d4 \u05d9\u05d9\u05d7\u05d5\u05d3\u05d9 \u05dc\u05de\u05e8\u05e4\u05d0\u05d4"
+    },
+    "clicks": {
+      "type": "number",
+      "default": 0,
+      "description": "\u05e1\u05da \u05d4\u05e7\u05dc\u05d9\u05e7\u05d9\u05dd \u05e2\u05dc \u05e7\u05d9\u05e9\u05d5\u05e8 \u05d4\u05d4\u05e4\u05e0\u05d9\u05d4"
+    },
+    "registrations": {
+      "type": "number",
+      "default": 0,
+      "description": "\u05e1\u05da \u05d4\u05d4\u05e8\u05e9\u05de\u05d5\u05ea \u05de\u05e7\u05d9\u05e9\u05d5\u05e8 \u05d4\u05d4\u05e4\u05e0\u05d9\u05d4"
+    },
+    "total_commission_earned": {
+      "type": "number",
+      "default": 0,
+      "description": "\u05e1\u05da \u05d4\u05e2\u05de\u05dc\u05d5\u05ea \u05e9\u05e0\u05e6\u05d1\u05e8\u05d5"
+    }
+  },
+  "required": [
+    "name",
+    "contact_person",
+    "phone",
+    "email",
+    "agreement_type"
+  ]
+}
